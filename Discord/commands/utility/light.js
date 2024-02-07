@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('discord.js');
-
+const controller = require('../../../Controller/controller.js');
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('light')
@@ -31,6 +31,7 @@ module.exports = {
 		const piece = interaction.options.getString('piece');
 		const numero = interaction.options.getInteger('numero');
 		const etat = interaction.options.getString('etat') ?? 'on';
+		controller.mafunction(interaction.user.username);
 		var reply = "La lampe "+ piece+" n°" + numero +" a été ";
 		if(etat == 'on')
 		{
