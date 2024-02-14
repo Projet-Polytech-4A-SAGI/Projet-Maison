@@ -124,7 +124,12 @@ MonRad.toggleRadiator(25);*/
 
 console.log("controller.js : Fin");
 
+const MonRadiateur = new Radiator();
+const MonVolet = new Volet();
+
 module.exports = {
- Radiator : Radiator,
- Volet : Volet
+ /*toggleRadiator : Radiator.prototype.toggleRadiator,
+ getTempC: Radiator.prototype.getTempC,*/
+ Radiator : MonRadiateur,
+ Volet : MonVolet
  }
