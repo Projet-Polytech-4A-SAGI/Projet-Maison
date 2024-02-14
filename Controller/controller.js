@@ -125,5 +125,6 @@ MonRad.toggleRadiator(25);*/
 console.log("controller.js : Fin");
 
 module.exports = {
- mafunction : mafunction
+ Radiator : Radiator,
+ Volet : Volet
  }
