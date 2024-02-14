@@ -4,7 +4,7 @@ const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 const { token } = require('../config.json');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
-
+console.log("discord.js : Début");
 client.commands = new Collection();
 const foldersPath = path.join(__dirname, 'commands');
 const commandFolders = fs.readdirSync(foldersPath);
@@ -49,3 +49,4 @@ client.on(Events.InteractionCreate, async interaction => {
 });
 
 client.login(token);
+console.log("discord.js : Fin");
