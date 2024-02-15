@@ -124,12 +124,17 @@ MonRad.toggleRadiator(25);*/
 
 console.log("controller.js : Fin");
 
-const MonRadiateur = new Radiator();
-const MonVolet = new Volet();
+const Radiator1 = new Radiator();
+const Radiator2 = new Radiator();
+
+const Shutter1 = new Volet();
+const Shutter2 = new Volet();
+const Shutter3 = new Volet();
 
 module.exports = {
- /*toggleRadiator : Radiator.prototype.toggleRadiator,
- getTempC: Radiator.prototype.getTempC,*/
- Radiator : MonRadiateur,
- Volet : MonVolet
+ Radiator1 : Radiator1,
+ Radiator2 : Radiator2,
+ Shutter1 : Shutter1,
+ Shutter2 : Shutter2,
+ Shutter3 : Shutter3,
  }

@@ -12,70 +12,109 @@ app.get('/',(req, res) => {
   });
 
 app.get('/light1/on', function (req, res, next) {
-  console.log('la route /light1/on a été appelée');
+  console.log('route /light1/on called');
   console.log('light1 on');
-  res.json({ message: 'La lampe 1 a été allumée' });
+  res.json({ message: 'light1 ON' });
 })
 
 app.get('/light1/off', function (req, res, next) {
-    console.log('la route /light1/off a été appelée');
+    console.log('route /light1/off called');
     console.log('light1 off');
-    res.json({ message: 'La lampe 1 a été éteinte' });
+    res.json({ message: 'light1 OFF' });
 })
   
 
 app.get('/light2/on', function (req, res, next) {
-    console.log('la route /light2/on a été appelée');
+    console.log('route /light2/on called');
     console.log('light1 on');
-    res.json({ message: 'La lampe 2 a été allumée' });
+    res.json({ message: 'light2 ON' });
 })
   
 app.get('/light2/off', function (req, res, next) {
-      console.log('la route /light2/off a été appelée');
+      console.log('route /light2/off called');
       console.log('light1 off');
-      res.json({ message: 'La lampe 2 a été éteinte' });
+      res.json({ message: 'light2 OFF' });
 })
 
 app.get('/light3/on', function (req, res, next) {
-    console.log('la route /light3/on a été appelée');
+    console.log('route /light3/on called');
     console.log('light1 on');
-    res.json({ message: 'La lampe 3 a été allumée' });
+    res.json({ message: 'light3 ON' });
 })
   
 app.get('/light3/off', function (req, res, next) {
-      console.log('la route /light3/off a été appelée');
+      console.log('route /light3/off called');
       console.log('light1 off');
-      res.json({ message: 'La lampe 3 a été éteinte' });
+      res.json({ message: 'light3 OFF' });
 })
 
-app.get('/heater1', function (req, res, next) {
-    console.log('la route /heater1 a été appelée')
+app.get('/radiator1', function (req, res, next) {
+    console.log('route /radiator1 called')
     const temp = req.query.temp;
-    console.log('heater1 '+temp);
-    Controller.Radiator.toggleRadiator(parseFloat(temp));
-    res.json({ message: 'Le radiateur 1 a été réglé sur '+temp+' degrés'});
+    console.log('radiator1 '+temp);
+    Controller.Radiator1.toggleRadiator(parseFloat(temp));
+    res.json({ message: 'radiator1 set to'+temp});
 
 })
 
-app.get('/heater2', function (req, res, next) {
-    console.log('la route /heater2 a été appelée')
+app.get('/radiator2', function (req, res, next) {
+    console.log('route /radiator2 called');
     const temp = req.query.temp;
-    console.log('heater1 '+temp);
-    res.json({ message: 'Le radiateur 2 a été réglé sur '+temp+' degrés'});
+    console.log('radiator2 '+temp);
+    Controller.Radiator2.toggleRadiator(parseFloat(temp));
+    res.json({ message: 'radiator2 set to '+temp});
 
 })
+
+app.get('/shutter1/open', function (req,res,next){
+    console.log('route /shutter1/open called');
+    console.log('shutter1 OPENED')
+    Controller.Shutter1.toggleVolet(true);
+    res.json({message:'shutter1 OPEN'})
+})
+
+app.get('/shutter1/close', function (req,res,next){
+    console.log('route /shutter1/close called');
+    console.log('shutter1 CLOSED')
+    Controller.Shutter1.toggleVolet(false);
+    res.json({message:'shutter1 CLOSED'})
+})
+
+app.get('/shutter2/open', function (req,res,next){
+    console.log('route /shutter2/open called');
+    console.log('shutter2 OPENED')
+    Controller.Shutter2.toggleVolet(true);
+    res.json({message:'shutter2 OPEN'})
+})
+
+app.get('/shutter2/close', function (req,res,next){
+    console.log('route /shutter2/close called');
+    console.log('shutter2 CLOSED')
+    Controller.Shutter2.toggleVolet(false);
+    res.json({message:'shutter2 CLOSED'})
+})
+
 
 app.get('/update', function (req, res, next) {
-    console.log('la route update a été appelée')
-    let temp = Controller.Radiator.getTempC()
-    console.log('temp '+temp);
-    res.json({ title: 'heater1', message: temp});
-    let temp_eau = Controller.Radiator.getTempEau()
-    console.log('temp eau '+temp_eau);
-    res.json({ message: 'L eau du radiateur est réglé sur '+temp_eau+' degrés'});
-    let volet_state = Controller.Volet.getVoletState()
-    console.log('etat du volet '+ volet_state);
-    res.json({ message: 'Le volet est sur l etat '+ volet});
+    console.log('route update called')
+
+    let R1temp = Controller.Radiator1.getTempC()
+    console.log('Temp Radiator 1 : '+ R1temp);
+    let R1watter = Controller.Radiator1.getTempEau()
+    console.log('Watter Radiator 1 : '+R1watter);
+
+    let R2temp = Controller.Radiator2.getTempC()
+    console.log('Temp Radiator 2 : '+ R2temp);
+    let R2watter = Controller.Radiator2.getTempEau()
+    console.log('Watter Radiator 2 : '+R2watter);
+
+    let S1 = Controller.Shutter1.getVoletState()
+    console.log('Shutter 1 : '+ S1);
+
+    let S2 = Controller.Shutter2.getVoletState()
+    console.log('Shutter 2 : '+ S2);
+
+    res.json({ Radiator1: { Temp : R1temp, Watter : R1watter}, Radiator2: { Temp : R2temp, Watter : R2watter}, Shutter1 : S1, Shutter2 : S2 });
 
 })
 
