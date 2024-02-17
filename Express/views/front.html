@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css" type="text/css">
+    
+    <title>IHM WEB</title>
+</head>
+<body onload="loadstates()">
+
+<div class="device" id="light1">
+    <h3>Light 1</h3>
+    <button onclick="toggleLight('light1')"  class="light_button">ON/OFF</button>
+    <div>Status: <span id="light1Status">OFF</span></div>
+</div>
+
+<div class="device" id="light2">
+    <h3>Light 2</h3>
+    <button onclick="toggleLight('light2')" class="light_button">ON/OFF</button>
+    <div>Status: <span id="light2Status">OFF</span></div>
+</div>
+
+<div class="device" id="light3">
+    <h3>Light 3</h3>
+    <button onclick="toggleLight('light3')"  class="light_button">ON/OFF</button>
+    <div>Status: <span id="light3Status">OFF</span></div>
+</div>
+
+<div class="device" id="radiator1">
+    <h3>radiator 1</h3>
+    <input type="number" id="radiator1Temp" placeholder="Set Temperature">
+    <button onclick="setTemperature('radiator1')">Set Temperature</button>
+    <div>Current Temperature: <span id="radiator1TempDisplay">N/A</span></div>
+    <div>Current Temperature: <span id="radiator1WatterDisplay">N/A</span></div>
+</div>
+
+<div class="device" id="radiator2">
+    <h3>radiator 2</h3>
+    <input type="number" id="radiator2Temp" placeholder="Set Temperature">
+    <button onclick="setTemperature('radiator2')">Set Temperature</button>
+    <div>Current Temperature: <span id="radiator2TempDisplay">N/A</span></div>
+    <div>Current Temperature: <span id="radiator2WatterDisplay">N/A</span></div>
+</div>
+
+<div class="device" id="shutter1">
+    <h3>Shutter 1</h3>
+    <button onclick="toggleShutter('shutter1','OPEN')" class="shutter_button">OPEN</button>
+    <button onclick="toggleShutter('shutter1','CLOSE')" class="shutter_button">CLOSE</button>
+    <div>Status: <span id="shutter1Status">CLOSED</span></div>
+</div>
+
+<div class="device" id="shutter2">
+    <h3>Shutter 2</h3>
+    <button onclick="toggleShutter('shutter2','OPEN')" class="shutter_button">OPEN</button>
+    <button onclick="toggleShutter('shutter2','CLOSE')" class="shutter_button">CLOSE</button>
+    <div>Status: <span id="shutter2Status">CLOSED</span></div>
+</div>
+
+<div class="device" id="shutter2">
+    <h3>Update</h3>
+    <button onclick="loadstates()" class="shutter_button">Force Update</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
