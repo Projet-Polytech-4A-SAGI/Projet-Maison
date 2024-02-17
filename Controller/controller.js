@@ -5,24 +5,72 @@ console.log("controller.js : Début");
 const SimulationMaison = require("./SimulationMaison.obfs.js");
 
 // On créé une instance de la classe SimulationMaison
-var MaMaison = new SimulationMaison();
+var MaMaison1 = new SimulationMaison();
+var MaMaison2 = new SimulationMaison();
+
+class Light{
+  constructor() {
+    this.isOn=false;
+  }
+  toggleLight(){
+    if (this.isOn==false){
+      this.isOn=true;
+    }
+    else {
+      this.isOn=false;
+    }
+  }
+  getLightState(){
+    return this.isOn;
+  }
+}
 
 class Volet {
   constructor() {
     this.isOpen = false;
+    this.Maison = new SimulationMaison;
   }
+
+  setMaison(Simu){
+    this.Maison=Simu;
+  }
+
   toggleVolet(newState) {
     this.isOpen = newState;
-    MaMaison.setVoletOuvert(newState);
-    if(MaMaison.getVoletOuvert()==true){
+    this.Maison.setVoletOuvert(newState);
+    if(this.Maison.getVoletOuvert()==true){
        console.log("controller.js : Le changement de Volet a été envoyé à la simulation (Volet ouvert)");
     }else{
       console.log("controller.js : Le changement de Volet a été envoyé à la simulation (Volet fermé)");
     }
   }
   getVoletState() {
-    return MaMaison.getVoletOuvert();
+    return this.Maison.getVoletOuvert();
   }
+}
+
+class House{
+  constructor(){
+    this.tempExte=0;
+    this.tempInte=0;
+    this.Maison=new SimulationMaison;
+  }
+  setMaison(Simu){
+    this.Maison=Simu;
+  }
+  getTempInte(){
+    return this.Maison.temperatureInterieure;
+  }
+  getTempExte(){
+    return this.Maison.temperatureExterieure;
+  }
+  setTempInte(value){
+    this.Maison.temperatureInterieure =value;
+  }
+  setTempExte(value){
+    this.Maison.temperatureExterieure =value;
+  }
+  
 }
 
 class Radiator {
@@ -35,12 +83,17 @@ class Radiator {
     this.isRunning = false;
     this.shouldNotStop = false;
     this.loopID = 0;
+    this.Maison = new SimulationMaison;
+  }
+
+  setMaison(Simu){
+    this.Maison=Simu;
   }
   getTempC() {
     return this.tempC;
   }
   getTempEau() {
-    return MaMaison.getTemperatureEauChauffage();
+    return this.Maison.getTemperatureEauChauffage();
   }
   toggleRadiator(temp) {
     // Vérifier si la boucle est déjà en cours d'exécution
@@ -59,9 +112,9 @@ class Radiator {
       if (currentloopID != this.shouldNotStop) {
         return;
       }
-      this.tempR = MaMaison.getTemperatureEauChauffage();
-      this.tempInt = MaMaison.getTemperatureInterieure();
-      this.tempExt = MaMaison.getTemperatureExterieure();
+      this.tempR = this.Maison.getTemperatureEauChauffage();
+      this.tempInt = this.Maison.getTemperatureInterieure();
+      this.tempExt = this.Maison.getTemperatureExterieure();
       this.tempLim =
         this.tempC +
         (this.tempC - this.tempInt) *1.5 +
@@ -71,8 +124,8 @@ class Radiator {
 
       if (this.tempInt < this.tempC) {
         if (this.tempR < this.tempLim) {
-          if (MaMaison.getChaufferEau() == false) {
-            MaMaison.setChaufferEau(true);
+          if (this.Maison.getChaufferEau() == false) {
+            this.Maison.setChaufferEau(true);
             console.log(
               "controller.js : Le changement de radiator a été envoyé à la simulation (ON)",
             );
@@ -80,8 +133,8 @@ class Radiator {
             console.log("controller.js : Pas de changement (radiator déja ON)");
           }
         }else{
-          if (MaMaison.getChaufferEau() == true){
-            MaMaison.setChaufferEau(false);
+          if (this.Maison.getChaufferEau() == true){
+            this.Maison.setChaufferEau(false);
             console.log(
               "controller.js : Le changement de radiator a été envoyé à la simulation (OFF), car tempLim atteinte");
           }else{
@@ -90,8 +143,8 @@ class Radiator {
           
         }
       } else {
-        if (MaMaison.getChaufferEau() == true) {
-          MaMaison.setChaufferEau(false);
+        if (this.Maison.getChaufferEau() == true) {
+          this.Maison.setChaufferEau(false);
           console.log(
             "controller.js : Le changement de radiator a été envoyé à la simulation (OFF), car consigne atteinte",
           );
@@ -124,17 +177,31 @@ MonRad.toggleRadiator(25);*/
 
 console.log("controller.js : Fin");
 
+const MyHouse = new House();
+MyHouse.setMaison(MaMaison1);
+
 const Radiator1 = new Radiator();
+Radiator1.setMaison(MaMaison1);
 const Radiator2 = new Radiator();
+Radiator2.setMaison(MaMaison1);
 
 const Shutter1 = new Volet();
+Shutter1.setMaison(MaMaison1);
 const Shutter2 = new Volet();
-const Shutter3 = new Volet();
+Shutter2.setMaison(MaMaison2);
+
+const Light1 = new Light();
+const Light2 = new Light();
+const Light3 = new Light();
 
 module.exports = {
+
+ MyHouse : MyHouse,
  Radiator1 : Radiator1,
  Radiator2 : Radiator2,
  Shutter1 : Shutter1,
  Shutter2 : Shutter2,
- Shutter3 : Shutter3,
+ Light1 : Light1,
+ Light2 : Light2,
+ Light3 : Light3
  }
