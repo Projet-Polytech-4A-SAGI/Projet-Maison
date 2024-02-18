@@ -30,20 +30,16 @@ function setTemperature(radiatorId) {
 
 function toggleShutter(shutterId,action){
 
-    var statusElement =document.getElementById(shutterId + 'Status');
-
-    if (action === 'CLOSE'){
-        statusElement.innerText='CLOSED';
-        const api_url="http://localhost:3000/"+shutterId+"/close";
-        fetch(api_url);
+    const api_url="http://localhost:3000/"+shutterId+"/"+action;
+    fetch(api_url)
+    .then(response => response.json())
+    .then(data => { 
+        Shutters[shutterId] = data.status
+        updateShutter(shutterId)})
+    .catch(error => {
+    console.error('Erreur lors de la requête :', error);
+    });
     }
-    else{
-        statusElement.innerHTML="OPENED";
-        const api_url="http://localhost:3000/"+shutterId+"/open";
-        fetch(api_url);
-    }
-
-}
 
 function loadstates(){
     const api_url = "http://localhost:3000/update";
@@ -65,15 +61,15 @@ function loadstates(){
         updateLamp("light3");
 
         Radiators.radiator1.Temp=data.radiator1.Temp;
-        Radiators.radiator1.Watter==data.radiator1.Watter;
+        Radiators.radiator1.Watter=data.radiator1.Watter;
         Radiators.radiator2.Temp=data.radiator2.Temp;
-        Radiators.radiator2.Watter==data.radiator2.Watter;
+        Radiators.radiator2.Watter=data.radiator2.Watter;
 
         updateRadiator("radiator1");
         updateRadiator("radiator2");
 
-        Shutters.Shutter1=data.Shutter1;
-        Shutters.Shutter2=data.Shutter2;
+        Shutters.shutter1=data.Shutter1;
+        Shutters.shutter2=data.Shutter2;
 
         updateShutter("shutter1");
         updateShutter("shutter2");
@@ -101,7 +97,6 @@ function updateHouse(){
 }
 
 function updateRadiator(radiatorId){
-    console.log("update radiator")
     document.getElementById(radiatorId+'TempDisplay').innerHTML=Radiators[radiatorId].Temp
     document.getElementById(radiatorId+'WatterDisplay').innerHTML=Radiators[radiatorId].Watter;
 
@@ -133,14 +128,9 @@ function updateRadiator(radiatorId){
         }
 }
 
-
-
-function updateShutter(){
-    if (Shutters.Shutter1 === true){document.getElementById('shutter1' + 'Status').innerHTML='OPENED';}
-        else {document.getElementById('shutter1' + 'Status').innerHTML='CLOSED';}
-
-    if (Shutters.Shutter2=== true){document.getElementById('shutter2' + 'Status').innerHTML='OPENED';}
-        else {document.getElementById('shutter2' + 'Status').innerHTML='CLOSED';}
+function updateShutter(shutterId){
+    if (Shutters[shutterId] === true){document.getElementById(shutterId + 'Status').innerHTML='OPENED';}
+        else {document.getElementById(shutterId + 'Status').innerHTML='CLOSED';}
 }
 
 var House ={
@@ -166,17 +156,9 @@ var Radiators = {
 }
 
 var Shutters = {
-    Shutter1 : false,
-    Shutter2 : false
+    shutter1 : false,
+    shutter2 : false
 }
-
-var _Radiator1Temp=0;
-var _Radiator1Watter=0;
-var _Radiator2Temp=0;
-var _Radiator2Watter=0;
-
-var _Shutter1Status=false;
-var _Shutter2Status=false; 
   
 document.getElementById('light1').addEventListener('click', function() {
 toggleLight('light1');

@@ -67,30 +67,34 @@ app.get('/radiator2', function (req, res, next) {
 
 app.get('/shutter1/open', function (req,res,next){
     console.log('route /shutter1/open called');
-    console.log('shutter1 OPENED')
     Controller.Shutter1.toggleVolet(true);
-    res.json({message:'shutter1 OPEN'})
+    let S1 = Controller.Shutter1.getVoletState();
+    console.log('shutter1 '+ S1)
+    res.json({status:S1})
 })
 
 app.get('/shutter1/close', function (req,res,next){
     console.log('route /shutter1/close called');
-    console.log('shutter1 CLOSED')
     Controller.Shutter1.toggleVolet(false);
-    res.json({message:'shutter1 CLOSED'})
+    let S1 = Controller.Shutter1.getVoletState();
+    console.log('shutter1 '+ S1)
+    res.json({status:S1})
 })
 
 app.get('/shutter2/open', function (req,res,next){
     console.log('route /shutter2/open called');
-    console.log('shutter2 OPENED')
     Controller.Shutter2.toggleVolet(true);
-    res.json({message:'shutter2 OPEN'})
+    let S2 = Controller.Shutter2.getVoletState();
+    console.log('shutter2 '+ S2)
+    res.json({status:S2})
 })
 
 app.get('/shutter2/close', function (req,res,next){
     console.log('route /shutter2/close called');
-    console.log('shutter2 CLOSED')
     Controller.Shutter2.toggleVolet(false);
-    res.json({message:'shutter2 CLOSED'})
+    let S2 = Controller.Shutter2.getVoletState();
+    console.log('shutter2 '+ S2)
+    res.json({status:S2})
 })
 
 
