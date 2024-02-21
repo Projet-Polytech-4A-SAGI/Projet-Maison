@@ -1,11 +1,8 @@
 require('dotenv').config()
 
-var debug = require('debug')('http')
-  , http = require('http')
-  , name = 'controller.js';
+var debug = require('debug')('controller.js');
 
-  debug('Début %o', name);
-
+  debug('Début ');
 
 // On importe le fichier JavaScript (le fichier déclare une classe à l'intérieure)
 const SimulationMaison = require("./SimulationMaison.obfs.js");
@@ -20,9 +17,9 @@ class Volet {
   toggleVolet(newState) {
     this.isOpen = newState;
     if(this.isOpen==true){
-      debug('%o Le changement de Volet a été envoyé à la simulation (Volet ouvert)', name);
+      debug('Le changement de Volet a été envoyé à la simulation (Volet ouvert)');
     }else{
-      debug('%o Le changement de Volet a été envoyé à la simulation (Volet fermé)', name);
+      debug('Le changement de Volet a été envoyé à la simulation (Volet fermé)');
     }
   }
   getVoletState() {
@@ -50,7 +47,7 @@ class Radiator {
   toggleRadiator(temp) {
     // Vérifier si la boucle est déjà en cours d'exécution
     if (this.isRunning) {
-      debug('%o Nouvelle consigne bien reçue', name);
+      debug('Nouvelle consigne bien reçue');
       this.loopID += 1;
       this.shouldNotStop = this.loopID;
     }
@@ -70,31 +67,31 @@ class Radiator {
         (this.tempC - this.tempInt) *1.5 +
         (this.tempInt - this.tempExt) *0.5 ; //Calcul à ajuster
 
-      debug('%o tempInt=%f tempR=%f tempLim=%f', name, this.tempInt, this.tempR, this.tempLim);
+      debug('tempInt=%f tempR=%f tempLim=%f', this.tempInt, this.tempR, this.tempLim);
 
       if (this.tempInt < this.tempC) {
         if (this.tempR < this.tempLim) {
           if (MaMaison.getChaufferEau() == false) {
             MaMaison.setChaufferEau(true);
-            debug('%o Le changement de radiator a été envoyé à la simulation (ON)', name);
+            debug('Le changement de radiator a été envoyé à la simulation (ON)');
           } else {
-            debug('%o Pas de changement (radiator déja ON)', name);
+            debug('Pas de changement (radiator déja ON)');
           }
         }else{
           if (MaMaison.getChaufferEau() == true){
             MaMaison.setChaufferEau(false);
-            debug('%o Le changement de radiator a été envoyé à la simulation (OFF), car tempLim atteinte', name);
+            debug('Le changement de radiator a été envoyé à la simulation (OFF), car tempLim atteinte');
           }else{
-            debug('%o Pas de changement (radiator au max déjà OFF)', name);
+            debug('Pas de changement (radiator au max déjà OFF)');
           }
           
         }
       } else {
         if (MaMaison.getChaufferEau() == true) {
           MaMaison.setChaufferEau(false);
-          debug('%o Le changement de radiator a été envoyé à la simulation (OFF), car consigne atteinte', name);         
+          debug('Le changement de radiator a été envoyé à la simulation (OFF), car consigne atteinte');         
         } else {
-          debug('%o Pas de changement (radiator déja OFF, consigne atteinte)', name); 
+          debug('Pas de changement (radiator déja OFF, consigne atteinte)'); 
         }
       }
       setTimeout(() => runLoop(currentloopID), 5000); // Boucle
@@ -138,4 +135,4 @@ module.exports = {
  Shutter3 : Shutter3,
  }
 
- debug('Fin %o', name);
+ debug('Fin ');
