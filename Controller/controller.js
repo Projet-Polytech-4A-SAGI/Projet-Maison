@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 var debug = require('debug')('http')
   , http = require('http')
   , name = 'controller.js';
@@ -124,6 +126,9 @@ const Radiator2 = new Radiator();
 const Shutter1 = new Volet();
 const Shutter2 = new Volet();
 const Shutter3 = new Volet();
+
+MaMaison.setPasDeTempsEnMs(process.env.INTERVAL_DE_TEMPS_SIMULATION || 5000);
+MaMaison.startSimulation();
 
 module.exports = {
  Radiator1 : Radiator1,
