@@ -1,4 +1,8 @@
-console.log("controller.js : Début");
+var debug = require('debug')('http')
+  , http = require('http')
+  , name = 'controller.js';
+
+  debug('Début %o', name);
 
 
 // On importe le fichier JavaScript (le fichier déclare une classe à l'intérieure)
@@ -13,15 +17,14 @@ class Volet {
   }
   toggleVolet(newState) {
     this.isOpen = newState;
-    MaMaison.setVoletOuvert(newState);
-    if(MaMaison.getVoletOuvert()==true){
-       console.log("controller.js : Le changement de Volet a été envoyé à la simulation (Volet ouvert)");
+    if(this.isOpen==true){
+      debug('%o Le changement de Volet a été envoyé à la simulation (Volet ouvert)', name);
     }else{
-      console.log("controller.js : Le changement de Volet a été envoyé à la simulation (Volet fermé)");
+      debug('%o Le changement de Volet a été envoyé à la simulation (Volet fermé)', name);
     }
   }
   getVoletState() {
-    return MaMaison.getVoletOuvert();
+    return this.isOpen;
   }
 }
 
@@ -45,9 +48,7 @@ class Radiator {
   toggleRadiator(temp) {
     // Vérifier si la boucle est déjà en cours d'exécution
     if (this.isRunning) {
-      console.log(
-        "controller.js : Nouvelle consigne bien reçue",
-      );
+      debug('%o Nouvelle consigne bien reçue', name);
       this.loopID += 1;
       this.shouldNotStop = this.loopID;
     }
@@ -67,36 +68,31 @@ class Radiator {
         (this.tempC - this.tempInt) *1.5 +
         (this.tempInt - this.tempExt) *0.5 ; //Calcul à ajuster
 
-      console.log(this.tempInt, this.tempR, this.tempLim, this.tempExt);
+      debug('%o tempInt=%f tempR=%f tempLim=%f', name, this.tempInt, this.tempR, this.tempLim);
 
       if (this.tempInt < this.tempC) {
         if (this.tempR < this.tempLim) {
           if (MaMaison.getChaufferEau() == false) {
             MaMaison.setChaufferEau(true);
-            console.log(
-              "controller.js : Le changement de radiator a été envoyé à la simulation (ON)",
-            );
+            debug('%o Le changement de radiator a été envoyé à la simulation (ON)', name);
           } else {
-            console.log("controller.js : Pas de changement (radiator déja ON)");
+            debug('%o Pas de changement (radiator déja ON)', name);
           }
         }else{
           if (MaMaison.getChaufferEau() == true){
             MaMaison.setChaufferEau(false);
-            console.log(
-              "controller.js : Le changement de radiator a été envoyé à la simulation (OFF), car tempLim atteinte");
+            debug('%o Le changement de radiator a été envoyé à la simulation (OFF), car tempLim atteinte', name);
           }else{
-            console.log("controller.js : Pas de changement (radiator au max déjà OFF)");
+            debug('%o Pas de changement (radiator au max déjà OFF)', name);
           }
           
         }
       } else {
         if (MaMaison.getChaufferEau() == true) {
           MaMaison.setChaufferEau(false);
-          console.log(
-            "controller.js : Le changement de radiator a été envoyé à la simulation (OFF), car consigne atteinte",
-          );
+          debug('%o Le changement de radiator a été envoyé à la simulation (OFF), car consigne atteinte', name);         
         } else {
-          console.log("controller.js : Pas de changement (radiator déja OFF, consigne atteinte)");
+          debug('%o Pas de changement (radiator déja OFF, consigne atteinte)', name); 
         }
       }
       setTimeout(() => runLoop(currentloopID), 5000); // Boucle
@@ -122,8 +118,6 @@ setTimeout(() => {
 MonRad.toggleRadiator(25);*/
 
 
-console.log("controller.js : Fin");
-
 const Radiator1 = new Radiator();
 const Radiator2 = new Radiator();
 
@@ -138,3 +132,5 @@ module.exports = {
  Shutter2 : Shutter2,
  Shutter3 : Shutter3,
  }
+
+ debug('Fin %o', name);

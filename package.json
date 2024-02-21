@@ -9,7 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "debug": "^4.3.4",
     "discord.js": "^14.14.1",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "supports-color": "^9.4.0"
   }
 }
