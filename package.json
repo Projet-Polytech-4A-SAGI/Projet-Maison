@@ -9,8 +9,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "debug": "^4.3.4",
     "discord.js": "^14.14.1",
+<<<<<<< HEAD
     "dotenv": "^16.4.5",
     "express": "^4.18.2"
+=======
+    "express": "^4.18.2",
+    "supports-color": "^9.4.0"
+>>>>>>> 891e42c9536730686a1a0f96f60b5f696885d227
   }
 }

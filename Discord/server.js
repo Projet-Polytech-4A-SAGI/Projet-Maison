@@ -1,3 +1,7 @@
+var debug = require('debug')('http')
+  , http = require('http')
+  , name = 'server.js';
+
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits, messageLink } = require('discord.js');
@@ -24,13 +28,13 @@ for (const folder of commandFolders) {
 		if ('data' in command && 'execute' in command) {
 			client.commands.set(command.data.name, command);
 		} else {
-			console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
+			debug(`%o [WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`, name);
 		}
 	}
 }
 
 client.once(Events.ClientReady, readyClient => {
-	console.log(`Ready! Logged in as ${readyClient.user.tag}`);
+	debug(`%o Ready! Logged in as ${readyClient.user.tag}`, name);
 });
 
 client.on(Events.InteractionCreate, async interaction => {
