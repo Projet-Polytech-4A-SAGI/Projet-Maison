@@ -5,16 +5,9 @@ var debug = require('debug')('http')
   , name = 'deploy_commands.js';
 
 const { REST, Routes } = require('discord.js');
-<<<<<<< HEAD
-require('dotenv').config({ path: './config.env' });
-const token  = process.env.token;
-const clientId = process.env.clientId;
-const guildId = process.env.guildId;
-=======
 const clientId = process.env.clientId;
 const guildId = process.env.guildId; 
 const token = process.env.token;
->>>>>>> 891e42c9536730686a1a0f96f60b5f696885d227
 const fs = require('node:fs');
 const path = require('node:path');
 
