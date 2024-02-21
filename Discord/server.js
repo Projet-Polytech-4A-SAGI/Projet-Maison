@@ -6,7 +6,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits, messageLink } = require('discord.js');
 const { groupCollapsed } = require('node:console');
-require('dotenv').config({ path: './config.env' });
+require('dotenv').config();
 const  token  = process.env.token;
 const channel_id = process.env.channelId
 
