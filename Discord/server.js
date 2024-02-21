@@ -1,10 +1,16 @@
 const fs = require('node:fs');
 const path = require('node:path');
-const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
-const { token } = require('../config.json');
+const { Client, Collection, Events, GatewayIntentBits, messageLink } = require('discord.js');
+const { groupCollapsed } = require('node:console');
+require('dotenv').config({ path: './config.env' });
+const  token  = process.env.token;
+const channel_id = process.env.channelId
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+
+const client = new Client({ intents: [GatewayIntentBits.Guilds,GatewayIntentBits.GuildMessages,GatewayIntentBits.MessageContent] });
+
 console.log("discord.js : Début");
+const channel = client.channels.cache.get(channel_id);
 client.commands = new Collection();
 const foldersPath = path.join(__dirname, 'commands');
 const commandFolders = fs.readdirSync(foldersPath);
@@ -45,6 +51,14 @@ client.on(Events.InteractionCreate, async interaction => {
 		} else {
 			await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
 		}
+	}
+});
+
+client.on(Events.MessageCreate,async message =>{
+	console.log("msg");	
+	if (message.channelId === channel_id)
+	{
+		console.log("Commande bot : "+ message.content);
 	}
 });
 
