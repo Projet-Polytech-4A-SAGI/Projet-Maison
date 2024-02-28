@@ -1,3 +1,5 @@
+var debug = require('debug')('Express:app.js');
+
 const express = require('express');
 
 const app = express();
@@ -13,7 +15,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.get('/',(req, res) => {
     res.sendFile('views/front.html', {root: __dirname})
-    console.log('interface appelée');
+    debug('interface appelée');
   });
 
 
@@ -42,8 +44,9 @@ app.get('/light3/toggle', function (req, res, next) {
 })
 
 app.get('/radiator1', function (req, res, next) {
-    console.log('route /radiator1 called')
+    debug('route /radiator1 called')
     const temp = req.query.temp;
+    debug('radiator1 '+temp);
     Controller.Radiator1.toggleRadiator(parseFloat(temp));
     let R1temp = Controller.Radiator1.getTempC()
     console.log('Temp Radiator 1 : '+ R1temp);
@@ -54,8 +57,9 @@ app.get('/radiator1', function (req, res, next) {
 })
 
 app.get('/radiator2', function (req, res, next) {
-    console.log('route /radiator2 called');
+    debug('route /radiator2 called');
     const temp = req.query.temp;
+    debug('radiator2 '+temp);
     Controller.Radiator2.toggleRadiator(parseFloat(temp));
     let R2temp = Controller.Radiator2.getTempC()
     console.log('Temp Radiator 2 : '+ R2temp);
@@ -66,7 +70,8 @@ app.get('/radiator2', function (req, res, next) {
 })
 
 app.get('/shutter1/open', function (req,res,next){
-    console.log('route /shutter1/open called');
+    debug('route /shutter1/open called');
+    debug('shutter1 OPENED')
     Controller.Shutter1.toggleVolet(true);
     let S1 = Controller.Shutter1.getVoletState();
     console.log('shutter1 '+ S1)
@@ -74,7 +79,8 @@ app.get('/shutter1/open', function (req,res,next){
 })
 
 app.get('/shutter1/close', function (req,res,next){
-    console.log('route /shutter1/close called');
+    debug('route /shutter1/close called');
+    debug('shutter1 CLOSED')
     Controller.Shutter1.toggleVolet(false);
     let S1 = Controller.Shutter1.getVoletState();
     console.log('shutter1 '+ S1)
@@ -82,7 +88,8 @@ app.get('/shutter1/close', function (req,res,next){
 })
 
 app.get('/shutter2/open', function (req,res,next){
-    console.log('route /shutter2/open called');
+    debug('route /shutter2/open called');
+    debug('shutter2 OPENED')
     Controller.Shutter2.toggleVolet(true);
     let S2 = Controller.Shutter2.getVoletState();
     console.log('shutter2 '+ S2)
@@ -90,7 +97,8 @@ app.get('/shutter2/open', function (req,res,next){
 })
 
 app.get('/shutter2/close', function (req,res,next){
-    console.log('route /shutter2/close called');
+    debug('route /shutter2/close called');
+    debug('shutter2 CLOSED')
     Controller.Shutter2.toggleVolet(false);
     let S2 = Controller.Shutter2.getVoletState();
     console.log('shutter2 '+ S2)
@@ -99,7 +107,7 @@ app.get('/shutter2/close', function (req,res,next){
 
 
 app.get('/update', function (req, res, next) {
-    console.log('route update called')
+    debug('route update called')
 
     let tempExte= Controller.MyHouse.getTempExte();
     console.log('Temp Exte : '+ tempExte);
@@ -107,20 +115,20 @@ app.get('/update', function (req, res, next) {
     console.log('Temp Inte : '+ tempInte);
 
     let R1temp = Controller.Radiator1.getTempC()
-    console.log('Temp Radiator 1 : '+ R1temp);
+    debug('Temp Radiator 1 : '+ R1temp);
     let R1watter = Controller.Radiator1.getTempEau()
-    console.log('Watter Radiator 1 : '+R1watter);
+    debug('Watter Radiator 1 : '+R1watter);
 
     let R2temp = Controller.Radiator2.getTempC()
-    console.log('Temp Radiator 2 : '+ R2temp);
+    debug('Temp Radiator 2 : '+ R2temp);
     let R2watter = Controller.Radiator2.getTempEau()
-    console.log('Watter Radiator 2 : '+R2watter);
+    debug('Watter Radiator 2 : '+R2watter);
 
     let S1 = Controller.Shutter1.getVoletState()
-    console.log('Shutter 1 : '+ S1);
+    debug('Shutter 1 : '+ S1);
 
     let S2 = Controller.Shutter2.getVoletState()
-    console.log('Shutter 2 : '+ S2);
+    debug('Shutter 2 : '+ S2);
 
     let L1 = Controller.Light1.getLightState()
     console.log('Light 1: '+ L1);

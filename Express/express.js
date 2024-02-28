@@ -1,4 +1,6 @@
-console.log("express.js : Début");
+var debug = require('debug')('express.js');
+
+debug(" Début");
 
 const http = require('http');
 const app = require('./app');
@@ -43,9 +45,9 @@ server.on('error', errorHandler);
 server.on('listening', () => {
   const address = server.address();
   const bind = typeof address === 'string' ? 'pipe ' + address : 'port ' + port;
-  console.log('Listening on ' + bind);
+  debug("Listening on " + bind);
 });
 
 server.listen(port);
 
-console.log("express.js : Fin");
+debug(" Fin");

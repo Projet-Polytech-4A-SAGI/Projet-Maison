@@ -1,5 +1,8 @@
-console.log("controller.js : Début");
+require('dotenv').config()
 
+var debug = require('debug')('controller.js');
+
+  debug('Début ');
 
 // On importe le fichier JavaScript (le fichier déclare une classe à l'intérieure)
 const SimulationMaison = require("./SimulationMaison.obfs.js");
@@ -41,7 +44,7 @@ class Volet {
     if(this.Maison.getVoletOuvert()==true){
        console.log("controller.js : Le changement de Volet a été envoyé à la simulation (Volet ouvert)");
     }else{
-      console.log("controller.js : Le changement de Volet a été envoyé à la simulation (Volet fermé)");
+      debug('Le changement de Volet a été envoyé à la simulation (Volet fermé)');
     }
   }
   getVoletState() {
@@ -98,9 +101,7 @@ class Radiator {
   toggleRadiator(temp) {
     // Vérifier si la boucle est déjà en cours d'exécution
     if (this.isRunning) {
-      console.log(
-        "controller.js : Nouvelle consigne bien reçue",
-      );
+      debug('Nouvelle consigne bien reçue');
       this.loopID += 1;
       this.shouldNotStop = this.loopID;
     }
@@ -120,7 +121,7 @@ class Radiator {
         (this.tempC - this.tempInt) *1.5 +
         (this.tempInt - this.tempExt) *0.5 ; //Calcul à ajuster
 
-      console.log(this.tempInt, this.tempR, this.tempLim, this.tempExt);
+      debug('tempInt=%f tempR=%f tempLim=%f', this.tempInt, this.tempR, this.tempLim);
 
       if (this.tempInt < this.tempC) {
         if (this.tempR < this.tempLim) {
@@ -130,7 +131,7 @@ class Radiator {
               "controller.js : Le changement de radiator a été envoyé à la simulation (ON)",
             );
           } else {
-            console.log("controller.js : Pas de changement (radiator déja ON)");
+            debug('Pas de changement (radiator déja ON)');
           }
         }else{
           if (this.Maison.getChaufferEau() == true){
@@ -138,7 +139,7 @@ class Radiator {
             console.log(
               "controller.js : Le changement de radiator a été envoyé à la simulation (OFF), car tempLim atteinte");
           }else{
-            console.log("controller.js : Pas de changement (radiator au max déjà OFF)");
+            debug('Pas de changement (radiator au max déjà OFF)');
           }
           
         }
@@ -149,7 +150,7 @@ class Radiator {
             "controller.js : Le changement de radiator a été envoyé à la simulation (OFF), car consigne atteinte",
           );
         } else {
-          console.log("controller.js : Pas de changement (radiator déja OFF, consigne atteinte)");
+          debug('Pas de changement (radiator déja OFF, consigne atteinte)'); 
         }
       }
       setTimeout(() => runLoop(currentloopID), 5000); // Boucle
@@ -194,6 +195,9 @@ const Light1 = new Light();
 const Light2 = new Light();
 const Light3 = new Light();
 
+MaMaison.setPasDeTempsEnMs(process.env.INTERVAL_DE_TEMPS_SIMULATION || 5000);
+MaMaison.startSimulation();
+
 module.exports = {
 
  MyHouse : MyHouse,
@@ -205,3 +209,5 @@ module.exports = {
  Light2 : Light2,
  Light3 : Light3
  }
+
+ debug('Fin ');

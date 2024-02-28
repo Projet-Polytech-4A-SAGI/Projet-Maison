@@ -1,5 +1,7 @@
-console.log("app.js : debut");
+var debug = require('debug')('app.js');
+
+debug("debut");
 const controller = require('./Controller/controller.js');
 const express = require('./Express/express.js');
 const discord = require("./Discord/server.js");
-console.log("app.js : fin");
+debug("fin");
