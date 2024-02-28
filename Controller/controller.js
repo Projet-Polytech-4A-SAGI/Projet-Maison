@@ -195,8 +195,8 @@ const Light1 = new Light();
 const Light2 = new Light();
 const Light3 = new Light();
 
-MaMaison.setPasDeTempsEnMs(process.env.INTERVAL_DE_TEMPS_SIMULATION || 5000);
-MaMaison.startSimulation();
+MaMaison1.setPasDeTempsEnMs(process.env.INTERVAL_DE_TEMPS_SIMULATION || 5000);
+MaMaison1.startSimulation();
 
 module.exports = {
 
