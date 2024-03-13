@@ -48,7 +48,7 @@ function loadstates(){
     .then(data => {
 
         House.tempInte=data.House.Inte;
-        House.tempInte=data.House.Exte;
+        House.tempExte=data.House.Exte;
 
         updateHouse();
 
