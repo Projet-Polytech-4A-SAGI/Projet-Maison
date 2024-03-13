@@ -1,15 +1,15 @@
 import * as THREE from 'three';
 
 function createCube() {
-  const geometry = new THREE.BoxGeometry(2, 2, 2);
 
-  // Switch the old "basic" material to
-  // a physically correct "standard" material
-  const material = new THREE.MeshStandardMaterial({ color: 'purple' });
-
-  const cube = new THREE.Mesh(geometry, material);
-
-  cube.rotation.set(-0.5, -0.1, 0.8);
+  let geometry = new THREE.BoxGeometry(10,6,10); // To draw cube shape geometry.
+  let mesh = new THREE.MeshStandardMaterial({color: 0xffe2b9}); // Add color of cube for appearance of cube.
+  let cube = new THREE.Mesh(geometry, mesh); //With mesh adding appearance of cube over it.
+  let edgeLine = new THREE.BoxGeometry( 10, 6, 7.5 ); 
+  let edges = new THREE.EdgesGeometry( edgeLine ); // To have border of cube.
+  let line = new THREE.LineSegments( edges, new THREE.LineBasicMaterial( { color: 0xffffff } ) ); // Adding border around bricks
+  cube.position.set(0,0,4);
+  line.position.copy(cube.position);
 
   return cube;
 }
