@@ -26,7 +26,7 @@ function setTemperature(radiatorId) {
         dataType: 'json',
         success: function(data) {
             Radiators[radiatorId].Temp = data.Temp;
-            Radiators[radiatorId].Watter = data.Watter.toFixed(3);
+            Radiators[radiatorId].Watter = data.Watter.toFixed(2);
             updateRadiator(radiatorId);
         },
         error: function(xhr, status, error) {
@@ -58,8 +58,8 @@ function loadstates() {
         method: 'GET',
         dataType: 'json',
         success: function(data) {
-            House.tempInte = data.House.Inte.toFixed(3);
-            House.tempExte = data.House.Exte.toFixed(3);
+            House.tempInte = data.House.Inte.toFixed(2);
+            House.tempExte = data.House.Exte.toFixed(2);
             updateHouse();
             Lights.light1 = data.light1;
             Lights.light2 = data.light2;
@@ -68,9 +68,9 @@ function loadstates() {
             updateLamp("light2");
             updateLamp("light3");
             Radiators.radiator1.Temp = data.radiator1.Temp;
-            Radiators.radiator1.Watter = data.radiator1.Watter.toFixed(3);
+            Radiators.radiator1.Watter = data.radiator1.Watter.toFixed(2);
             Radiators.radiator2.Temp = data.radiator2.Temp;
-            Radiators.radiator2.Watter = data.radiator2.Watter.toFixed(3);
+            Radiators.radiator2.Watter = data.radiator2.Watter.toFixed(2);
             updateRadiator("radiator1");
             updateRadiator("radiator2");
             Shutters.shutter1 = data.Shutter1;
@@ -102,15 +102,15 @@ function updateRadiator(radiatorId) {
     $('#' + radiatorId + 'TempDisplay').text(Radiators[radiatorId].Temp);
     $('#' + radiatorId + 'WatterDisplay').text(Radiators[radiatorId].Watter);
 
-    const RadiatorElement = $('#' + radiatorId);
+    const RadiatorElement = $('#' + radiatorId +'img');
     if (Radiators[radiatorId].Temp === 0) {
-        RadiatorElement.removeClass('on1 on2 on3').addClass('off');
+        RadiatorElement.removeClass('temp1 temp2 temp3').addClass('tempoff');
     } else if (Radiators[radiatorId].Temp >= 10 && Radiators[radiatorId].Temp < 18) {
-        RadiatorElement.removeClass('off on2 on3').addClass('on1');
+        RadiatorElement.removeClass('tempoff temp2 temp3').addClass('temp1');
     } else if (Radiators[radiatorId].Temp >= 18 && Radiators[radiatorId].Temp < 23) {
-        RadiatorElement.removeClass('off on1 on3').addClass('on2');
+        RadiatorElement.removeClass('tempoff temp1 temp3').addClass('temp2');
     } else if (Radiators[radiatorId].Temp >= 23) {
-        RadiatorElement.removeClass('off on1 on2').addClass('on3');
+        RadiatorElement.removeClass('tempoff temp1 temp2').addClass('temp3');
     }
 }
 

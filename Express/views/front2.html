@@ -13,51 +13,50 @@
     <div class="container-fluid">
 
         <div id="house" class="row">
-            <div class="col">
-                <img src="/img/home.png" style="width: 300px;" alt="house_logo">
+            <div class="col-xl-3 col-md-12">
+                <img src="/img/home.png" class="house_icon" alt="house_logo">
             </div>
-            <div class="col _label" >
-                <div>Temp Extérieur: <span id="HouseTempExte"></span></div>
-                <div>Temp Intérieur: <span id="HouseTempInte"></span></div>
+            <div class="col-xl-9 col-md-12 _label" >
+                <div>Extérieur : <span id="HouseTempExte"></span>°C</div>
+                <div>Intérieur : <span id="HouseTempInte"></span>°C</div>
             </div>
         </div>
 
         <div class="custom-divider"></div>
 
 
-        <center>
         <div id="lamps" class="row">
-            <div class="col">
-                <label for="light1">Light 1</label>
+            <div class="col-lg-4 col-md-12">
+                <label for="light1" class="_label" >Light 1</label>
                 <input class="l" type="checkbox" id="light1">
             </div>
-            <div class="col">
-                <label for="light2">Light 2</label>
+            <div class="col-lg-4 col-md-12">
+                <label for="light2" class="_label">Light 2</label>
                 <input class="l" type="checkbox" id="light2">     
             </div>
-            <div class="col">
-                <label for="light3">Light 3</label>
+            <div class="col-lg-4 col-md-12">
+                <label for="light3" class="_label">Light 3</label>
                 <input class="l" type="checkbox" id="light3">
             </div>
         </div>
-        </center>
+        
 
         <div class="custom-divider"></div>
 
 
-        <div id="radiators" class="row w-100 ">
-            <div class="radiator col " id="radiator1">
+        <div id="radiators" class="row">
+            <div class="radiator col-lg-6 col-md-12" id="radiator1">
                 <center><label for="radiator1" class="_label">Radiator 1</label></center>
-                <img src="/img/heater.png" alt="Radiator">
+                <center><img src="/img/heater.png" class="rad_img" id="radiator1img" alt="Radiator"></center>
                 <input type="number" id="radiator1Temp" placeholder="18°" class="form-control mb-2 mt-2" style="height: 150px;">
                 <button onclick="setTemperature('radiator1')" class="btn btn-success btn-sm mb-0">Validate</button>
                 <div class="_label">Temp : <span id="radiator1TempDisplay">N/A</span></div>
                 <div class="_label">Watter: <span id="radiator1WatterDisplay">N/A</span></div>
             </div>
             
-            <div class="radiator col "  id="radiator2">
+            <div class="radiator col-lg-6 col-md-12"  id="radiator2">
                 <center><label for="radiator2" class="_label">Radiator 2</label></center>
-                <img src="/img/heater.png" alt="Radiator">
+                <center><img src="/img/heater.png" class="rad_img" id="radiator2img" alt="Radiator"></center>
                 <input type="number" id="radiator2Temp" placeholder="18°" class="form-control mb-2 mt-2" style="height: 150px;">
                 <button onclick="setTemperature('radiator2')" class="btn btn-success btn-sm mb-0">Validate</button>
                 <div class="_label">Temp : <span id="radiator2TempDisplay">N/A</span></div>
@@ -65,12 +64,12 @@
             </div>
         </div>
 
-        <br><br><br><br><br><br>
         <div class="custom-divider"></div>
 
         <div id="shutters" class="row w-100 ">
-            <div class="col" id="shutter1">
+            <div class="col-lg-6 col-md-12" id="shutter1">
                 <center><label for="shutter1" class="_label">Shutter 1</label>
+                    <br>
                     <button onclick="toggleShutter('shutter1','open')" class="btn btn-success btn-sm shutter_btn">OPEN</button>
                     <button onclick="toggleShutter('shutter1','close')" class="btn btn-danger btn-sm shutter_btn">CLOSE</button>
                 </center>
@@ -79,8 +78,9 @@
                 <div>Status: <span id="shutter1Status">CLOSED</span></div>
             </div>
 
-            <div class="col" id="shutter2">
+            <div class="col-lg-6 col-md-12" id="shutter2">
                 <center><label for="shutter2" class="_label">Shutter 2</label>
+                    <br>
                     <button onclick="toggleShutter('shutter2','open')" class="btn btn-success btn-sm shutter_btn">OPEN</button>
                     <button onclick="toggleShutter('shutter2','close')" class="btn btn-danger btn-sm shutter_btn">CLOSE</button>
                 </center>
