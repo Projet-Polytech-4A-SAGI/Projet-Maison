@@ -11,7 +11,7 @@
 <body onload="loadstates()">
 
     <div class="container-fluid">
-        <div id="lamps" class="row">
+        <center><div id="lamps" class="row">
             <div class="col">
                 <input class="l" type="checkbox" id="light1">
                 <label for="light1">Light 1</label>
@@ -24,23 +24,23 @@
                 <input class="l" type="checkbox" id="light3">
                 <label for="light3">Light 3</label>
             </div>
-        </div>
+        </div></center>
 
 
         <div id="radiators" class="row">
                 <div class="radiator col" id="radiator1">
-                    <label for="radiator1">radiator 1</label>
+                    <center><label for="radiator1">radiator 1</label></center>
                     <img src="/img/heater.png" alt="Radiator">
-                    <input type="number" id="radiator1Temp" placeholder="Set Temperature" class="form-control">
+                    <input type="number" id="radiator1Temp" placeholder="18°" class="form-control">
                     <button onclick="setTemperature('radiator1')" class="btn btn-success btn-sm mt-2" >Set Temperature</button>
                     <div class="mt-2">Temperature: <span id="radiator1TempDisplay">N/A</span></div>
                     <div>Watter: <span id="radiator1WatterDisplay">N/A</span></div>
                 </div>
                 
                 <div class="radiator col"  id="radiator2">
-                    <label for="radiator2">radiator 2</label>
+                    <center><label for="radiator2">radiator 2</label></center>
                     <img src="/img/heater.png" alt="Radiator">
-                    <input type="number" id="radiator2Temp" placeholder="Set Temperature" class="form-control">
+                    <input type="number" id="radiator2Temp" placeholder="18°" class="form-control">
                     <button onclick="setTemperature('radiator2')" class="btn btn-success btn-sm mt-2">Set Temperature</button>
                     <div class="mt-2">Temperature: <span id="radiator2TempDisplay">N/A</span></div>
                     <div>Watter: <span id="radiator2WatterDisplay">N/A</span></div>
