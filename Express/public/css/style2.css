@@ -102,30 +102,30 @@ main {
   .radiator.on1::after {
 	content: '';
 	position: absolute;
-	top: 65%;
-	left: 17%;
-	width: 65%;
-	height: 85%;
+	top: 75%;
+	left: 30%;
+	width: 40%;
+	height: 90%;
 	background-color: rgba(226, 120, 120, 0.3); 
 	border-radius: 10%;
   }
   .radiator.on2::after {
 	content: '';
 	position: absolute;
-	top: 65%;
-	left: 17%;
-	width: 65%;
-	height: 85%;
+	top: 75%;
+	left: 30%;
+	width: 40%;
+	height: 90%;
 	background-color: rgba(226, 70, 70, 0.4); ; 
 	border-radius: 10%;
   }
   .radiator.on3::after {
 	content: '';
 	position: absolute;
-	top: 65%;
-	left: 17%;
-	width: 65%;
-	height: 85%;
+	top: 75%;
+	left: 30%;
+	width: 40%;
+	height: 90%;
 	background-color: rgba(226, 10, 10, 0.5); 
 	border-radius: 10%;
   }
@@ -145,3 +145,7 @@ main {
 	height: 100%;
 	object-fit: contain;
   }
+
+  .radiator-label {
+	white-space: nowrap; /* Empêche le texte de passer à la ligne */
+}

@@ -13,37 +13,37 @@
     <div class="container-fluid">
         <center><div id="lamps" class="row">
             <div class="col">
-                <input class="l" type="checkbox" id="light1">
                 <label for="light1">Light 1</label>
+                <input class="l" type="checkbox" id="light1">
             </div>
             <div class="col">
-                <input class="l" type="checkbox" id="light2">
                 <label for="light2">Light 2</label>
+                <input class="l" type="checkbox" id="light2">     
             </div>
             <div class="col">
-                <input class="l" type="checkbox" id="light3">
                 <label for="light3">Light 3</label>
+                <input class="l" type="checkbox" id="light3">
             </div>
         </div></center>
 
 
-        <div id="radiators" class="row">
-                <div class="radiator col" id="radiator1">
-                    <center><label for="radiator1">radiator 1</label></center>
+        <div id="radiators" class="row w-100 ">
+                <div class="radiator col " id="radiator1">
+                    <center><label for="radiator1" class="radiator-label">Radiator 1</label></center>
                     <img src="/img/heater.png" alt="Radiator">
-                    <input type="number" id="radiator1Temp" placeholder="18°" class="form-control">
-                    <button onclick="setTemperature('radiator1')" class="btn btn-success btn-sm mt-2" >Set Temperature</button>
-                    <div class="mt-2">Temperature: <span id="radiator1TempDisplay">N/A</span></div>
-                    <div>Watter: <span id="radiator1WatterDisplay">N/A</span></div>
+                    <input type="number" id="radiator1Temp" placeholder="18°" class="form-control mb-2 mt-2" style="height: 150px;">
+                    <button onclick="setTemperature('radiator1')" class="btn btn-success btn-sm mb-0">Validate</button>
+                    <div class="radiator-label">Temp : <span id="radiator1TempDisplay">N/A</span></div>
+                    <div class="radiator-label">Watter: <span id="radiator1WatterDisplay">N/A</span></div>
                 </div>
                 
-                <div class="radiator col"  id="radiator2">
-                    <center><label for="radiator2">radiator 2</label></center>
+                <div class="radiator col "  id="radiator2">
+                    <center><label for="radiator2" class="radiator-label">Radiator 2</label></center>
                     <img src="/img/heater.png" alt="Radiator">
-                    <input type="number" id="radiator2Temp" placeholder="18°" class="form-control">
-                    <button onclick="setTemperature('radiator2')" class="btn btn-success btn-sm mt-2">Set Temperature</button>
-                    <div class="mt-2">Temperature: <span id="radiator2TempDisplay">N/A</span></div>
-                    <div>Watter: <span id="radiator2WatterDisplay">N/A</span></div>
+                    <input type="number" id="radiator2Temp" placeholder="18°" class="form-control mb-2 mt-2" style="height: 150px;">
+                    <button onclick="setTemperature('radiator2')" class="btn btn-success btn-sm mb-0">Validate</button>
+                    <div class="radiator-label">Temp : <span id="radiator2TempDisplay">N/A</span></div>
+                    <div class="radiator-label">Watter: <span id="radiator2WatterDisplay">N/A</span></div>
                 </div>
             </div>
 
@@ -51,33 +51,6 @@
 
         
     </div>
-    
-
-
-   <!--- <div id="radiators" class="row">
-        <div class="row-2">
-            <div class="radiator col" id="radiator1">
-                <img src="/img/heater.png" alt="Radiator">
-
-                <h3>radiator 1</h3>
-                
-                <input type="number" id="radiator1Temp" placeholder="Set Temperature">
-                <button onclick="setTemperature('radiator1')">Set Temperature</button>
-                <div>Temperature: <span id="radiator1TempDisplay">N/A</span></div>
-                <div>Watter: <span id="radiator1WatterDisplay">N/A</span></div>
-            </div>
-            
-            <div class="radiator"  id="radiator2">
-                <h3>radiator 2</h3>
-                <img src="/img/heater.png" alt="Radiator">
-                <input type="number" id="radiator2Temp" placeholder="Set Temperature">
-                <button onclick="setTemperature('radiator2')">Set Temperature</button>
-                <div>Temperature: <span id="radiator2TempDisplay">N/A</span></div>
-                <div>Watter: <span id="radiator2WatterDisplay">N/A</span></div>
-            </div>-->
-
-
-
 <script src="/script/script2.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
