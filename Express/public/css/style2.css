@@ -146,6 +146,12 @@ main {
 	object-fit: contain;
   }
 
-  .radiator-label {
+  ._label {
 	white-space: nowrap; /* Empêche le texte de passer à la ligne */
+}
+
+.shutter_btn{
+	width: 250px;
+	height: 150px;
+	font-size: 50px;
 }

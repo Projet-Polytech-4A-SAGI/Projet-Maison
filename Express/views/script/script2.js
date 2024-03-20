@@ -47,10 +47,10 @@ function loadstates(){
     .then(response => response.json())
     .then(data => {
 
-        House.tempInte=data.House.Inte;
-        House.tempInte=data.House.Exte;
+        House.tempInte=data.House.Inte.toFixed(3);
+        House.tempExte=data.House.Exte.toFixed(3);
 
-        //updateHouse();
+        updateHouse();
 
         Lights.light1=data.light1;
         Lights.light2=data.light2;
@@ -73,8 +73,8 @@ function loadstates(){
         Shutters.shutter1=data.Shutter1;
         Shutters.shutter2=data.Shutter2;
 
-        //updateShutter("shutter1");
-        //updateShutter("shutter2");
+        updateShutter("shutter1");
+        updateShutter("shutter2");
         
     })
     .catch(error => {
