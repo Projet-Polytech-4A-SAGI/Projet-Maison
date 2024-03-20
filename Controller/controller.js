@@ -105,20 +105,6 @@ class Radiator {
 
 
 
-/* Mes tests
-MaMaison.setPasDeTempsEnMs(1000);
-MaMaison.startSimulation();
-
-var MonRad = new Radiator();
-var MonVolet = new Volet();
-
-MonVolet.toggleVolet(true);
-MonVolet.toggleVolet(false);
-setTimeout(() => {
-  MonRad.toggleRadiator(20);
-}, 60000);
-MonRad.toggleRadiator(25);*/
-
 
 const Radiator1 = new Radiator();
 const Radiator2 = new Radiator();

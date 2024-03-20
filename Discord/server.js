@@ -2,13 +2,18 @@ var debug = require('debug')('http')
   , http = require('http')
   , name = 'server.js';
 
+const controller = require('../Controller/controller.js');
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits, messageLink } = require('discord.js');
 const { groupCollapsed } = require('node:console');
 require('dotenv').config();
+const nlp = require('compromise');
+const nlp_fr = require('nlp-js-tools-french');
 const  token  = process.env.token;
 const channel_id = process.env.channelId
+
+
 
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds,GatewayIntentBits.GuildMessages,GatewayIntentBits.MessageContent] });
@@ -58,11 +63,71 @@ client.on(Events.InteractionCreate, async interaction => {
 	}
 });
 
+
+function parse(msg)
+{
+	let doc = nlp(msg);
+	let docFR =new nlp_fr(msg);
+	let boolChauffage = doc.has('chauffage') || doc.has("temperature");
+	let boolVolet = doc.has('volet');
+	let boolLight = (doc.has("lampe") || doc.has("lumière"));
+	let temp = 0;
+	if (boolChauffage)
+	{
+		let tab = doc.terms().out("array");
+		tab.forEach(element => {
+			if(element.includes("°"))
+			{
+				temp = nlp(element).numbers().get()[0]; 
+				controller.Radiator1.toggleRadiator(temp);
+			}
+		});
+	}
+	else if (boolVolet)
+	{
+		try{
+		docFR.lemmatizer().forEach(element =>{
+			if(element.lemma == "ouvrir")
+			{
+				controller.Shutter1.toggleVolet();
+				throw {};
+			}
+			else if (element.lemma == "fermer")
+			{
+				controller.Shutter1.toggleVolet();
+				throw {};
+			}
+		})
+	}catch(e){};
+	}
+	else if (boolLight)
+	{
+		try{
+			docFR.lemmatizer().forEach(element =>{
+				if(element.lemma == "allumer")
+				{
+					throw {};
+				}
+				else if (element.lemma == "éteindre")
+				{
+					throw {};
+				}
+			})
+		}catch(e){};
+	}
+
+}
+
+
 client.on(Events.MessageCreate,async message =>{
-	console.log("msg");	
 	if (message.channelId === channel_id)
 	{
-		console.log("Commande bot : "+ message.content);
+		msg = nlp(message.content);
+		sentences = msg.sentences().out("array");
+		sentences.forEach(element =>{
+		parse(element);
+
+		})
 	}
 });
 
