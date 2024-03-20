@@ -9,6 +9,13 @@ function main() {
 
   // draw the scene
   world.render();
+  world.update(world);
+  runUpdate(world);
+  
+}
+
+function runUpdate(world) {
+  setInterval(() => world.update(world), 5000);
 }
 
 main();

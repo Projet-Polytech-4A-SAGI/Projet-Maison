@@ -23,48 +23,67 @@ class World {
 
     const cube = createCube();
     const roof = createRoof();
-    const door = createDoor();
-    const window = createWindow();
-    const window2 = createWindow2();
+    this.door = createDoor();
+    this.window = createWindow();
+    this.window2 = createWindow2();
     const light = createLights();
 
-
-    scene.add(cube, roof, door, window, window2, light);
+    scene.add(cube, roof, this.door, this.window, this.window2, light);
 
     const resizer = new Resizer(container, camera, renderer);
-    this.update();
   }
 
-  update(){
+  update(world){
     const api_url = "http://localhost:3000/update";
     fetch(api_url)
     .then(response => response.json())
     .then(data => {
+        console.log(data.House.Inte);
+        world.door.material.color.setHex(this.getColorBasedOnIntensity(data));
         
-        if(data.House.Inte>=20){
-          door.material.color.setHex(0xee2b00);
+        if(data.Shutter1==true){
+          world.window.material.color.setHex(0xffffff);
         }else{
-          door.material.color.setHex(0x20ee00);
+          world.window.material.color.setHex(0x000000);
         }
 
-        if(data.Shutter1==True){
-          window.material.color.setHex(0xffffff);
+        if(data.Shutter2==true){
+          world.window2.material.color.setHex(0xffffff);
         }else{
-          window.material.color.setHex(0x000000);
+          world.window2.material.color.setHex(0x000000);
         }
-
-        if(data.Shutter2==True){
-          window2.material.color.setHex(0xffffff);
-        }else{
-          window2.material.color.setHex(0x000000);
-        }
+        this.render();
     })
     .catch(error => {
         console.error('Erreur lors de la requête :', error);
     });
-    this.render();
-    setTimeout(this.update,5000); //Refait la fonction toutes les 5s
+    
   }
+
+getColorBasedOnIntensity(data) {
+      let intensity = data.House.Inte;
+      let color;
+      
+      if (intensity <= 5) {
+        color = 0x0000ff;
+    } else if (intensity <= 10) {
+        color = 0x0077ff;
+    } else if (intensity <= 15) {
+        color = 0x00ffff;
+    } else if (intensity <= 18) {
+        color = 0x00ff77;
+    } else if (intensity <= 21) {
+        color = 0x00ff00;
+    } else if (intensity <= 25) {
+        color = 0xffff00;
+    } else if (intensity <= 30) {
+        color = 0xff7700;
+    } else {
+        color = 0xff0000;
+    }
+      
+      return color;
+}
 
   render() {
     // draw a single frame
@@ -72,4 +91,4 @@ class World {
   }
 }
 
-export { World };
+export { World};
