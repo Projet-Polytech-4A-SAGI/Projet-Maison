@@ -14,7 +14,7 @@ app.use(express.static(path.join(__dirname, "views")));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.get('/',(req, res) => {
-    res.sendFile('views/front.html', {root: __dirname})
+    res.sendFile('views/front2.html', {root: __dirname})
     debug('interface appelée');
   });
 

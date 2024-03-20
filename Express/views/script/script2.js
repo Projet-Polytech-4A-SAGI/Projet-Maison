@@ -50,7 +50,7 @@ function loadstates(){
         House.tempInte=data.House.Inte;
         House.tempInte=data.House.Exte;
 
-        updateHouse();
+        //updateHouse();
 
         Lights.light1=data.light1;
         Lights.light2=data.light2;
@@ -59,6 +59,8 @@ function loadstates(){
         updateLamp("light1");
         updateLamp("light2");
         updateLamp("light3");
+
+        console.log(Lights.light1);
 
         Radiators.radiator1.Temp=data.radiator1.Temp;
         Radiators.radiator1.Watter=data.radiator1.Watter;
@@ -71,8 +73,8 @@ function loadstates(){
         Shutters.shutter1=data.Shutter1;
         Shutters.shutter2=data.Shutter2;
 
-        updateShutter("shutter1");
-        updateShutter("shutter2");
+        //updateShutter("shutter1");
+        //updateShutter("shutter2");
         
     })
     .catch(error => {
