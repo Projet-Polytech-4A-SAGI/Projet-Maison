@@ -155,3 +155,9 @@ main {
 	height: 150px;
 	font-size: 50px;
 }
+
+.custom-divider {
+	height: 1px; /* Hauteur de la ligne */
+	background-color: #000; /* Couleur de la ligne */
+	margin: 20px 0; /* Marge supérieure et inférieure */
+}
