@@ -18,6 +18,11 @@ app.get('/',(req, res) => {
     debug('interface appelée');
   });
 
+app.get('/model',(req, res) => {
+res.sendFile('views/model.html', {root: __dirname})
+debug('interface appelée');
+});
+
 
 app.get('/light1/toggle', function (req, res, next) {
     debug('route /light1/toggle called');
