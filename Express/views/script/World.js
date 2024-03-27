@@ -38,7 +38,6 @@ class World {
     fetch(api_url)
     .then(response => response.json())
     .then(data => {
-        console.log(data.House.Inte);
         world.door.material.color.setHex(this.getColorBasedOnIntensity(data));
         
         if(data.Shutter1==true){
