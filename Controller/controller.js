@@ -198,9 +198,6 @@ const Light3 = new Light();
 MaMaison1.setPasDeTempsEnMs(process.env.INTERVAL_DE_TEMPS_SIMULATION || 5000);
 MaMaison1.startSimulation();
 
-MaMaison2.setPasDeTempsEnMs(process.env.INTERVAL_DE_TEMPS_SIMULATION || 5000);
-MaMaison2.startSimulation();
-
 module.exports = {
 
  MyHouse : MyHouse,
