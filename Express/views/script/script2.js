@@ -20,7 +20,7 @@ function setTemperature(radiatorId) {
     .then(response => response.json())
     .then(data => { 
         Radiators[radiatorId].Temp = data.Temp
-        Radiators[radiatorId].Watter = data.Watter
+        Radiators[radiatorId].Watter = data.Watter.toFixed(3)
         updateRadiator(radiatorId)})
     .catch(error => {
         console.error('Erreur lors de la requête :', error);
@@ -47,8 +47,8 @@ function loadstates(){
     .then(response => response.json())
     .then(data => {
 
-        House.tempInte=data.House.Inte;
-        House.tempInte=data.House.Exte;
+        House.tempInte=data.House.Inte.toFixed(3);
+        House.tempExte=data.House.Exte.toFixed(3);
 
         updateHouse();
 
@@ -60,10 +60,12 @@ function loadstates(){
         updateLamp("light2");
         updateLamp("light3");
 
+        console.log(Lights.light1);
+
         Radiators.radiator1.Temp=data.radiator1.Temp;
-        Radiators.radiator1.Watter=data.radiator1.Watter;
+        Radiators.radiator1.Watter=data.radiator1.Watter.toFixed(3);
         Radiators.radiator2.Temp=data.radiator2.Temp;
-        Radiators.radiator2.Watter=data.radiator2.Watter;
+        Radiators.radiator2.Watter=data.radiator2.Watter.toFixed(3);
 
         updateRadiator("radiator1");
         updateRadiator("radiator2");
@@ -84,9 +86,9 @@ function loadstates(){
 function updateLamp(lightId) {
     const lampElement = document.getElementById(lightId);
     if (Lights[lightId]) {
-        lampElement.classList.add('on');
+        lampElement.checked=true;
     } else {
-        lampElement.classList.remove('on');
+        lampElement.checked=false;
     }
 }
 
@@ -160,15 +162,15 @@ var Shutters = {
     shutter2 : false
 }
   
-document.getElementById('light1').addEventListener('click', function() {
+document.getElementById('light1').addEventListener('change', function() {
 toggleLight('light1');
 });
   
-document.getElementById('light2').addEventListener('click', function() {
+document.getElementById('light2').addEventListener('change', function() {
 toggleLight('light2');
 });
   
-document.getElementById('light3').addEventListener('click', function() {
+document.getElementById('light3').addEventListener('change', function() {
 toggleLight('light3');
 });
 

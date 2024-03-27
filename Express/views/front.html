@@ -3,65 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css" type="text/css">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
     
     <title>IHM WEB</title>
 </head>
 <body onload="loadstates()">
+<section id="lamps" class="device">
+    <div class="lamp" id="light1"><h3><center>Light1</center></h3><img src="/img/light_bulb.png" alt="Ampoule"></div>
+    <div class="lamp" id="light2"><h3><center>Light2</center></h3><img src="/img/light_bulb.png" alt="Ampoule"></div>
+    <div class="lamp" id="light3"><h3><center>Light3</center></h3><img src="/img/light_bulb.png" alt="Ampoule"></div>
+</section> 
 
-<div class="device" id="light1">
-    <h3>Light 1</h3>
-    <button onclick="toggleLight('light1')"  class="light_button">ON/OFF</button>
-    <div>Status: <span id="light1Status">OFF</span></div>
-</div>
-
-<div class="device" id="light2">
-    <h3>Light 2</h3>
-    <button onclick="toggleLight('light2')" class="light_button">ON/OFF</button>
-    <div>Status: <span id="light2Status">OFF</span></div>
-</div>
-
-<div class="device" id="light3">
-    <h3>Light 3</h3>
-    <button onclick="toggleLight('light3')"  class="light_button">ON/OFF</button>
-    <div>Status: <span id="light3Status">OFF</span></div>
-</div>
-
-<div class="device" id="radiator1">
+<section id="radiators" class="device">
+<div class="radiator" id="radiator1">
     <h3>radiator 1</h3>
+    <img src="/img/heater.png" alt="Radiator">
     <input type="number" id="radiator1Temp" placeholder="Set Temperature">
     <button onclick="setTemperature('radiator1')">Set Temperature</button>
-    <div>Current Temperature: <span id="radiator1TempDisplay">N/A</span></div>
-    <div>Current Temperature: <span id="radiator1WatterDisplay">N/A</span></div>
+    <div>Temperature: <span id="radiator1TempDisplay">N/A</span></div>
+    <div>Watter: <span id="radiator1WatterDisplay">N/A</span></div>
 </div>
 
-<div class="device" id="radiator2">
+<div class="radiator" id="radiator2">
     <h3>radiator 2</h3>
+    <img src="/img/heater.png" alt="Radiator">
     <input type="number" id="radiator2Temp" placeholder="Set Temperature">
     <button onclick="setTemperature('radiator2')">Set Temperature</button>
-    <div>Current Temperature: <span id="radiator2TempDisplay">N/A</span></div>
-    <div>Current Temperature: <span id="radiator2WatterDisplay">N/A</span></div>
+    <div>Temperature: <span id="radiator2TempDisplay">N/A</span></div>
+    <div>Watter: <span id="radiator2WatterDisplay">N/A</span></div>
 </div>
 
-<div class="device" id="shutter1">
+</section>
+ 
+<section id="shutters" class="device">
+<div class="shutter" id="shutter1">
     <h3>Shutter 1</h3>
-    <button onclick="toggleShutter('shutter1','OPEN')" class="shutter_button">OPEN</button>
-    <button onclick="toggleShutter('shutter1','CLOSE')" class="shutter_button">CLOSE</button>
+    <button onclick="toggleShutter('shutter1','open')" class="shutter_button">OPEN</button>
+    <button onclick="toggleShutter('shutter1','close')" class="shutter_button">CLOSE</button>
     <div>Status: <span id="shutter1Status">CLOSED</span></div>
 </div>
 
-<div class="device" id="shutter2">
+<div class="shutter" id="shutter2">
     <h3>Shutter 2</h3>
-    <button onclick="toggleShutter('shutter2','OPEN')" class="shutter_button">OPEN</button>
-    <button onclick="toggleShutter('shutter2','CLOSE')" class="shutter_button">CLOSE</button>
+    <button onclick="toggleShutter('shutter2','open')" class="shutter_button">OPEN</button>
+    <button onclick="toggleShutter('shutter2','close')" class="shutter_button">CLOSE</button>
     <div>Status: <span id="shutter2Status">CLOSED</span></div>
 </div>
 
-<div class="device" id="shutter2">
+</section>
+<section id="force update" class="device">
+<div class="shutter" id="update">
     <h3>Update</h3>
     <button onclick="loadstates()" class="shutter_button">Force Update</button>
 </div>
 
-<script src="script.js"></script>
+</section>
+
+
+<section id="house" class="device">
+    <div class="house" id="update">
+        <h3><center>My House</center></h3>
+        <img src="/img/home.png" style="width: 100px;" alt="house_logo">
+        <div>Temp Extérieur: <span id="HouseTempExte"></span></div>
+        <div>Temp Intérieur: <span id="HouseTempInte"></span></div>
+    </div>
+    
+    </section>
+
+<script src="/script/script.js"></script>
 </body>
 </html>

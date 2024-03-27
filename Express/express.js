@@ -1,7 +1,6 @@
-var debug = require('debug')('http')
-  , name = 'express.js';
+var debug = require('debug')('express.js');
 
-debug("%o  Début", name);
+debug(" Début");
 
 const http = require('http');
 const app = require('./app');
@@ -46,9 +45,9 @@ server.on('error', errorHandler);
 server.on('listening', () => {
   const address = server.address();
   const bind = typeof address === 'string' ? 'pipe ' + address : 'port ' + port;
-  debug("%o Listening on " + bind, name);
+  debug("Listening on " + bind);
 });
 
 server.listen(port);
 
-debug("%o  Fin", name);
+debug(" Fin");

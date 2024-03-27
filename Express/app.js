@@ -1,124 +1,144 @@
-var debug = require('debug')('http')
-  , http = require('http')
-  , name = 'Express:app.js';
+var debug = require('debug')('Express:app.js');
 
 const express = require('express');
 
 const app = express();
 const Controller = require('../Controller/controller');
 
-app.use(express.static('views/style'));
+/*app.use(express.static('views/style'));
 app.use(express.static('views/script'));
+app.use(express.static('views/img'));*/
+const path = require("path");
+const controller = require('../Controller/controller');
+app.use(express.static(path.join(__dirname, "views")));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.get('/',(req, res) => {
-    res.sendFile('views/front.html', {root: __dirname})
-    debug('%o interface appelée', name);
+    res.sendFile('views/front2.html', {root: __dirname})
+    debug('interface appelée');
   });
 
-app.get('/light1/on', function (req, res, next) {
-  debug('%o route /light1/on called', name);
-  debug('%o light1 on', name);
-  res.json({ message: 'light1 ON' });
+
+app.get('/light1/toggle', function (req, res, next) {
+    debug('route /light1/toggle called');
+    controller.Light1.toggleLight();
+    let status = controller.Light1.getLightState();
+    debug('light1 '+status)
+    res.json({ light: 'Light1', status : status });
 })
 
-app.get('/light1/off', function (req, res, next) {
-    debug('%o route /light1/off called', name);
-    debug('%o light1 off', name);
-    res.json({ message: 'light1 OFF' });
-})
-  
-
-app.get('/light2/on', function (req, res, next) {
-    debug('%o route /light2/on called', name);
-    debug('%o light1 on', name);
-    res.json({ message: 'light2 ON' });
-})
-  
-app.get('/light2/off', function (req, res, next) {
-      debug('%o route /light2/off called', name);
-      debug('%o light1 off', name);
-      res.json({ message: 'light2 OFF' });
+app.get('/light2/toggle', function (req, res, next) {
+    debug('route /light2/toggle called');
+    controller.Light2.toggleLight();
+    let status = controller.Light2.getLightState();
+    debug('light2 '+status)
+    res.json({ light: 'Light2', status : status });
 })
 
-app.get('/light3/on', function (req, res, next) {
-    debug('%o route /light3/on called', name);
-    debug('%o light1 on', name);
-    res.json({ message: 'light3 ON' });
-})
-  
-app.get('/light3/off', function (req, res, next) {
-      debug('%o route /light3/off called', name);
-      debug('%o light1 off', name);
-      res.json({ message: 'light3 OFF' });
+app.get('/light3/toggle', function (req, res, next) {
+    debug('route /light3/toggle called');
+    controller.Light3.toggleLight();
+    let status = controller.Light3.getLightState();
+    debug('light3 '+status)
+    res.json({ light: 'Light3', status : status });
 })
 
 app.get('/radiator1', function (req, res, next) {
-    debug('%o route /radiator1 called', name)
+    debug('route /radiator1 called')
     const temp = req.query.temp;
-    debug('%o radiator1 '+temp, name);
+    debug('radiator1 '+temp);
     Controller.Radiator1.toggleRadiator(parseFloat(temp));
-    res.json({ message: 'radiator1 set to'+temp});
+    let R1temp = Controller.Radiator1.getTempC()
+    debug('Temp Radiator 1 : '+ R1temp);
+    let R1watter = Controller.Radiator1.getTempEau()
+    debug('Watter Radiator 1 : '+R1watter);
+    res.json({  Temp : R1temp, Watter : R1watter });
 
 })
 
 app.get('/radiator2', function (req, res, next) {
-    debug('%o route /radiator2 called', name);
+    debug('route /radiator2 called');
     const temp = req.query.temp;
-    debug('%o radiator2 '+temp, name);
     Controller.Radiator2.toggleRadiator(parseFloat(temp));
-    res.json({ message: 'radiator2 set to '+temp});
+    let R2temp = Controller.Radiator2.getTempC()
+    debug('Temp Radiator 2 : '+ R2temp);
+    let R2watter = Controller.Radiator2.getTempEau()
+    debug('Watter Radiator 2: '+R2watter);
+    res.json({ Temp : R2temp, Watter : R2watter});
 
 })
 
 app.get('/shutter1/open', function (req,res,next){
-    debug('%o route /shutter1/open called', name);
-    debug('%o shutter1 OPENED', name)
+    debug('route /shutter1/open called');
+    debug('shutter1 OPENED')
     Controller.Shutter1.toggleVolet(true);
-    res.json({message:'shutter1 OPEN'})
+    let S1 = Controller.Shutter1.getVoletState();
+    debug('shutter1 '+ S1)
+    res.json({status:S1})
 })
 
 app.get('/shutter1/close', function (req,res,next){
-    debug('%o route /shutter1/close called', name);
-    debug('%o shutter1 CLOSED', name)
+    debug('route /shutter1/close called');
+    debug('shutter1 CLOSED')
     Controller.Shutter1.toggleVolet(false);
-    res.json({message:'shutter1 CLOSED'})
+    let S1 = Controller.Shutter1.getVoletState();
+    debug('shutter1 '+ S1)
+    res.json({status:S1})
 })
 
 app.get('/shutter2/open', function (req,res,next){
-    debug('%o route /shutter2/open called');
-    debug('%o shutter2 OPENED')
+    debug('route /shutter2/open called');
+    debug('shutter2 OPENED')
     Controller.Shutter2.toggleVolet(true);
-    res.json({message:'shutter2 OPEN'})
+    let S2 = Controller.Shutter2.getVoletState();
+    debug('shutter2 '+ S2)
+    res.json({status:S2})
 })
 
 app.get('/shutter2/close', function (req,res,next){
-    debug('%o route /shutter2/close called');
-    debug('%o shutter2 CLOSED')
+    debug('route /shutter2/close called');
+    debug('shutter2 CLOSED')
     Controller.Shutter2.toggleVolet(false);
-    res.json({message:'shutter2 CLOSED'})
+    let S2 = Controller.Shutter2.getVoletState();
+    debug('shutter2 '+ S2)
+    res.json({status:S2})
 })
 
 
 app.get('/update', function (req, res, next) {
-    debug('%o route update called', name)
+    debug('route update called')
+
+    let tempExte= Controller.MyHouse.getTempExte();
+    debug('Temp Exte : '+ tempExte);
+    let tempInte= Controller.MyHouse.getTempInte();
+    debug('Temp Inte : '+ tempInte);
 
     let R1temp = Controller.Radiator1.getTempC()
-    debug('%o Temp Radiator 1 : '+ R1temp, name);
+    debug('Temp Radiator 1 : '+ R1temp);
     let R1watter = Controller.Radiator1.getTempEau()
-    debug('%o Watter Radiator 1 : '+R1watter, name);
+    debug('Watter Radiator 1 : '+R1watter);
 
     let R2temp = Controller.Radiator2.getTempC()
-    debug('%o Temp Radiator 2 : '+ R2temp, name);
+    debug('Temp Radiator 2 : '+ R2temp);
     let R2watter = Controller.Radiator2.getTempEau()
-    debug('%o Watter Radiator 2 : '+R2watter, name);
+    debug('Watter Radiator 2 : '+R2watter);
 
     let S1 = Controller.Shutter1.getVoletState()
-    debug('%o Shutter 1 : '+ S1, name);
+    debug('Shutter 1 : '+ S1);
 
     let S2 = Controller.Shutter2.getVoletState()
-    debug('%o Shutter 2 : '+ S2, name);
+    debug('Shutter 2 : '+ S2);
 
-    res.json({ Radiator1: { Temp : R1temp, Watter : R1watter}, Radiator2: { Temp : R2temp, Watter : R2watter}, Shutter1 : S1, Shutter2 : S2 });
+    let L1 = Controller.Light1.getLightState()
+    debug('Light 1: '+ L1);
+
+    let L2 = Controller.Light2.getLightState()
+    debug('Light 2: '+ L2);
+
+    let L3 = Controller.Light3.getLightState()
+    debug('Light 3: '+ L3);
+
+    res.json({ House:{Exte: tempExte, Inte: tempInte},radiator1: { Temp : R1temp, Watter : R1watter}, radiator2: { Temp : R2temp, Watter : R2watter}, Shutter1 : S1, Shutter2 : S2, light1 : L1, light2 : L2,light3 : L3});
 
 })
 

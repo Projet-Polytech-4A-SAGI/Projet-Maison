@@ -1,0 +1,157 @@
+*, *:before, *:after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+:root {
+	/* minFontSize + (maxFontSize - minFontSize) * (100vw - minVWidth)/(maxVWidth - minVWidth) */
+	font-size: calc(64px + (80 - 64) * (100vw - 320px)/(960 - 320));
+}
+body, input {
+	font-size: 1em;
+	line-height: 1.5;
+}
+body {
+	background: #ffffff;
+}
+input {
+	display: block;
+	margin-bottom: 1.5em;
+}
+main {
+	padding: 1.5em 0 0 0;
+	text-align: center;	
+}
+
+#lamps{
+	margin-top: 30px;
+}
+
+.l {
+	background-color: rgba(0,0,0,0.7);
+	border-radius: 0.75em;
+	box-shadow: 0.125em 0.125em 0 0.125em rgba(0,0,0,0.3) inset;
+	color: #fdea7b;
+	display: inline-flex;
+	align-items: center;
+	margin: auto;
+	padding: 0.15em;
+	width: 3em;
+	height: 1.5em;
+	transition: background-color 0.1s 0.3s ease-out, box-shadow 0.1s 0.3s ease-out;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+.l:before, .l:after {
+	content: "";
+	display: block;
+}
+.l:before {
+	background-color: #d7d7d7;
+	border-radius: 50%;
+	width: 1.2em;
+	height: 1.2em;
+	transition: background-color 0.1s 0.3s ease-out, transform 0.3s ease-out;
+	z-index: 1;
+}
+.l:after {
+	background:
+		linear-gradient(transparent 50%, rgba(0,0,0,0.15) 0) 0 50% / 50% 100%,
+		repeating-linear-gradient(90deg,#bbb 0,#bbb,#bbb 20%,#999 20%,#999 40%) 0 50% / 50% 100%,
+		radial-gradient(circle at 50% 50%,#888 25%, transparent 26%);
+	background-repeat: no-repeat;
+	border: 0.25em solid transparent;
+	border-left: 0.4em solid #d8d8d8;
+	border-right: 0 solid transparent;
+	transition: border-left-color 0.1s 0.3s ease-out, transform 0.3s ease-out;
+	transform: translateX(-22.5%);
+	transform-origin: 25% 50%;
+	width: 1.2em;
+	height: 1em;
+}
+/* Checked */
+.l:checked {
+	background-color: rgba(0,0,0,0.45);
+	box-shadow: 0.125em 0.125em 0 0.125em rgba(0,0,0,0.1) inset;
+}
+.l:checked:before {
+	background-color: currentColor;
+	transform: translateX(125%)
+}
+.l:checked:after {
+	border-left-color: currentColor;
+	transform: translateX(-2.5%) rotateY(180deg);
+}
+/* Other States */
+.l:focus {
+	/* Usually an anti-A11Y practice but set to remove an annoyance just for this demo */
+	outline: 0;
+}
+
+.radiator {
+	/*margin: 10px;
+	padding-left: 10%;
+	padding-right: 10%;*/
+	cursor: pointer;
+	position: relative;
+  }
+
+.temp1 {
+	display: block;
+	background-color: rgba(226, 120, 120, 0.3); 
+}
+.temp2{
+	display: block;
+	background-color: rgba(226, 70, 70, 0.4);
+}
+.temp3 {
+	display: block;
+	background-color: rgba(226, 10, 10, 0.5); 
+}
+.tempoff {
+	background-color: rgba(255, 255, 255, 0); 
+}
+
+._label {
+	white-space: nowrap; /* Empêche le texte de passer à la ligne */
+}
+
+.shutter_btn{
+	width: 250px;
+	height: 150px;
+	font-size: 50px;
+}
+
+.custom-divider {
+	height: 1px; /* Hauteur de la ligne */
+	background-color: #000; /* Couleur de la ligne */
+	margin: 20px 0; /* Marge supérieure et inférieure */
+}
+
+/* Pour les écrans larges */
+@media screen and (min-width: 768px) {
+    .rad_img {
+			position: relative;
+			width: 300px;
+			border-radius: 10%;
+    }
+	.house_icon{
+		width: 300px;
+	}
+}
+
+/* Pour les écrans plus petits */
+@media screen and (max-width: 767px) {
+
+
+    .rad_img {
+        position: relative;
+			width: 200px;
+			border-radius: 10%;
+    }
+	.house_icon{
+		width: 150px;
+	}
+}
+
