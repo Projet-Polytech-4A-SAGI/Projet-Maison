@@ -15,15 +15,51 @@
 	}
   </script>
   <script type="module" src="./script/model.js"></script>
-  
+  <style>
+    .cmd-container {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 300px;
+      background-color: #000;
+      color: #fff;
+      overflow-y: auto;
+      padding: 10px;
+      font-family: monospace;
+    }
+    
+    .cmd-left {
+      left: 0;
+    }
+    
+    .cmd-right {
+      right: 0;
+    }
+  </style>
 </head>
 
 <body>
-  <h1>Discoverthreejs.com - Physically Based Rendering</h1>
+  <h1>Model of the house</h1>
+  <p>Windows are white if the shutters are opened and black if they are closed</p>
+  <p>The color of the door shows how hot it is inside. deep blue: &lt;5, blue: 5-10, turquoize: 10-15, spring green: 15-18, green: 18-21, yellow: 21-25, orange: 25-30, red: &gt;30</p>
 
-  <div id="scene-container">
+  <div id="scene-container" style="position: relative;">
+    <div class="cmd-container cmd-left">
+      <pre id="left-cmd"></pre>
+    </div>
+    <div class="cmd-container cmd-right">
+      <pre id="right-cmd"></pre>
+        Temperature inside: <span class="TempIn"> </span> <br> <br>
+        Temperature outside: <span class="TempOut"> </span> <br> <br>
+        Living room window: <span class="LivWin"> </span> <br> <br>
+        Bedroom window: <span class="BedWin"> </span> <br> <br>
+        Living room light: <span class="LivLight"> </span> <br> <br>
+        Bedroom light: <span class="BedLight"> </span> <br> <br>
+        Bathroom light: <span class="BathLight"> </span> <br> <br>
+    </div>
     <!-- Our <canvas> will be inserted here -->
   </div>
+
 </body>
 
 </html>

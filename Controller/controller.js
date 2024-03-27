@@ -42,7 +42,7 @@ class Volet {
     this.isOpen = newState;
     this.Maison.setVoletOuvert(newState);
     if(this.Maison.getVoletOuvert()==true){
-       console.log("controller.js : Le changement de Volet a été envoyé à la simulation (Volet ouvert)");
+      debug('Le changement de Volet a été envoyé à la simulation (Volet ouvert)');
     }else{
       debug('Le changement de Volet a été envoyé à la simulation (Volet fermé)');
     }
@@ -127,7 +127,7 @@ class Radiator {
         if (this.tempR < this.tempLim) {
           if (this.Maison.getChaufferEau() == false) {
             this.Maison.setChaufferEau(true);
-            console.log(
+            debug(
               "controller.js : Le changement de radiator a été envoyé à la simulation (ON)",
             );
           } else {
@@ -136,7 +136,7 @@ class Radiator {
         }else{
           if (this.Maison.getChaufferEau() == true){
             this.Maison.setChaufferEau(false);
-            console.log(
+            debug(
               "controller.js : Le changement de radiator a été envoyé à la simulation (OFF), car tempLim atteinte");
           }else{
             debug('Pas de changement (radiator au max déjà OFF)');
@@ -146,7 +146,7 @@ class Radiator {
       } else {
         if (this.Maison.getChaufferEau() == true) {
           this.Maison.setChaufferEau(false);
-          console.log(
+          debug(
             "controller.js : Le changement de radiator a été envoyé à la simulation (OFF), car consigne atteinte",
           );
         } else {
@@ -176,7 +176,6 @@ setTimeout(() => {
 MonRad.toggleRadiator(25);*/
 
 
-console.log("controller.js : Fin");
 
 const MyHouse = new House();
 MyHouse.setMaison(MaMaison1);
