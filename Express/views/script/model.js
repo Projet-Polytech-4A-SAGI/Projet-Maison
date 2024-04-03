@@ -1,6 +1,7 @@
 import { World } from './World.js';
 
 function main() {
+  const socket = io(); //io socket accessible from html
   // Get a reference to the container element
   const container = document.querySelector('#scene-container');
 
@@ -11,13 +12,20 @@ function main() {
   world.render();
   world.update(world);
   rightCmd();
-  runUpdate(world);
-  runUpdate2();
-
-  // Write inside the left and right panels (cmds)
+  //runUpdate(world); //Used if no socket
+  //runUpdate2(); //Used if no socket
 
   
+  //sockets
+  socket.on('dataUpdated', (data) => {
+      rightCmd();
+      world.update(world);
+  });
+  socket.on('commands', (data) => {
+      leftCmd(data);
+  });
 }
+
 
 function runUpdate(world) {
   setInterval(() => world.update(world), 5000);
@@ -27,8 +35,8 @@ function runUpdate2() {
   setInterval(() => rightCmd(), 5000);
 }
 
-function leftCmd(message, cmdId) {
-  const cmdElement = document.querySelector(`#${cmdId}`);
+function leftCmd(message) {
+  const cmdElement = document.querySelector("left-cmd");
   cmdElement.textContent += message + '\n';
 }
 

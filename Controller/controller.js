@@ -10,6 +10,7 @@ const SimulationMaison = require("./SimulationMaison.obfs.js");
 // On créé une instance de la classe SimulationMaison
 var MaMaison1 = new SimulationMaison();
 var MaMaison2 = new SimulationMaison();
+let io;
 
 class Light{
   constructor() {
@@ -159,6 +160,15 @@ class Radiator {
   }
 }
 
+function SocketUpdate(socketIoInstance) {
+  io = socketIoInstance;
+
+  // Emits data every update
+  setInterval(() => {
+      io.emit('dataUpdated', '');
+  }, process.env.INTERVAL_DE_TEMPS_SIMULATION || 5000);
+}
+
 
 
 /* Mes tests
@@ -206,7 +216,8 @@ module.exports = {
  Shutter2 : Shutter2,
  Light1 : Light1,
  Light2 : Light2,
- Light3 : Light3
+ Light3 : Light3,
+ SocketUpdate
  }
 
  debug('Fin ');

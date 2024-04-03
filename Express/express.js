@@ -4,6 +4,7 @@ debug(" Début");
 
 const http = require('http');
 const app = require('./app');
+const Controller = require('../Controller/controller');
 
 const normalizePort = val => {
   const port = parseInt(val, 10);
@@ -17,7 +18,7 @@ const normalizePort = val => {
   return false;
 };
 const port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
+app.app.set('port', port);
 
 const errorHandler = error => {
   if (error.syscall !== 'listen') {
@@ -39,7 +40,11 @@ const errorHandler = error => {
   }
 };
 
-const server = http.createServer(app);
+const server = http.createServer(app.app);
+const { Server } = require("socket.io");
+const io = new Server(server);
+Controller.SocketUpdate(io);
+app.SetIo(io);
 
 server.on('error', errorHandler);
 server.on('listening', () => {

@@ -5,6 +5,11 @@ const express = require('express');
 const app = express();
 const Controller = require('../Controller/controller');
 
+let io;
+function SetIo(socket){
+    io=socket;
+}
+
 /*app.use(express.static('views/style'));
 app.use(express.static('views/script'));
 app.use(express.static('views/img'));*/
@@ -30,6 +35,7 @@ app.get('/light1/toggle', function (req, res, next) {
     let status = controller.Light1.getLightState();
     debug('light1 '+status)
     res.json({ light: 'Light1', status : status });
+    io.emit('dataUpdated', '');
 })
 
 app.get('/light2/toggle', function (req, res, next) {
@@ -38,6 +44,7 @@ app.get('/light2/toggle', function (req, res, next) {
     let status = controller.Light2.getLightState();
     debug('light2 '+status)
     res.json({ light: 'Light2', status : status });
+    io.emit('dataUpdated', '');
 })
 
 app.get('/light3/toggle', function (req, res, next) {
@@ -46,6 +53,7 @@ app.get('/light3/toggle', function (req, res, next) {
     let status = controller.Light3.getLightState();
     debug('light3 '+status)
     res.json({ light: 'Light3', status : status });
+    io.emit('dataUpdated', '');
 })
 
 app.get('/radiator1', function (req, res, next) {
@@ -58,6 +66,7 @@ app.get('/radiator1', function (req, res, next) {
     let R1watter = Controller.Radiator1.getTempEau()
     debug('Watter Radiator 1 : '+R1watter);
     res.json({  Temp : R1temp, Watter : R1watter });
+    io.emit('dataUpdated', '');
 
 })
 
@@ -70,6 +79,7 @@ app.get('/radiator2', function (req, res, next) {
     let R2watter = Controller.Radiator2.getTempEau()
     debug('Watter Radiator 2: '+R2watter);
     res.json({ Temp : R2temp, Watter : R2watter});
+    io.emit('dataUpdated', '');
 
 })
 
@@ -80,6 +90,7 @@ app.get('/shutter1/open', function (req,res,next){
     let S1 = Controller.Shutter1.getVoletState();
     debug('shutter1 '+ S1)
     res.json({status:S1})
+    io.emit('dataUpdated', '');
 })
 
 app.get('/shutter1/close', function (req,res,next){
@@ -89,6 +100,7 @@ app.get('/shutter1/close', function (req,res,next){
     let S1 = Controller.Shutter1.getVoletState();
     debug('shutter1 '+ S1)
     res.json({status:S1})
+    io.emit('dataUpdated', '');
 })
 
 app.get('/shutter2/open', function (req,res,next){
@@ -98,6 +110,7 @@ app.get('/shutter2/open', function (req,res,next){
     let S2 = Controller.Shutter2.getVoletState();
     debug('shutter2 '+ S2)
     res.json({status:S2})
+    io.emit('dataUpdated', '');
 })
 
 app.get('/shutter2/close', function (req,res,next){
@@ -107,6 +120,7 @@ app.get('/shutter2/close', function (req,res,next){
     let S2 = Controller.Shutter2.getVoletState();
     debug('shutter2 '+ S2)
     res.json({status:S2})
+    io.emit('dataUpdated', '');
 })
 
 
@@ -147,4 +161,7 @@ app.get('/update', function (req, res, next) {
 
 })
 
-module.exports = app;
+module.exports = {
+    app,
+    SetIo
+};
