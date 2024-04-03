@@ -8,13 +8,18 @@ const { groupCollapsed } = require('node:console');
 require('dotenv').config();
 const nlp = require('compromise');
 const nlp_fr = require('nlp-js-tools-french');
-const  token  = process.env.token;
+const tal = require("fr-compromise");
+const token = process.env.token;
 const channel_id = process.env.channelId
 
+const volet = [controller.Shutter1, controller.Shutter2]
+const lights = [controller.Light1, controller.Light2, controller.Light3]
+const radiateurs = [controller.Radiator1, controller.Radiator2]
 
 
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds,GatewayIntentBits.GuildMessages,GatewayIntentBits.MessageContent] });
+
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
 
 console.log("discord.js : Début");
 const channel = client.channels.cache.get(channel_id);
@@ -62,68 +67,52 @@ client.on(Events.InteractionCreate, async interaction => {
 });
 
 
-function parse(msg)
-{
+function parse(msg) {
 	let doc = nlp(msg);
-	let docFR =new nlp_fr(msg);
+	let docFR = new nlp_fr(msg);
 	let boolChauffage = doc.has('chauffage') || doc.has("temperature");
 	let boolVolet = doc.has('volet');
 	let boolLight = (doc.has("lampe") || doc.has("lumière"));
 	let temp = 0;
-	if (boolChauffage)
-	{
-		let tab = doc.terms().out("array");
-		tab.forEach(element => {
-			if(element.includes("°"))
-			{
-				temp = nlp(element).numbers().get()[0]; 
-				controller.Radiator1.toggleRadiator(temp);
-			}
-		});
+	val = tal(element).numbers().get();
+	if (boolChauffage) {
+		radiateurs[val[0]-1].toggleRadiator(val[1]);
+
 	}
-	else if (boolVolet)
-	{
-		try{
-		docFR.lemmatizer().forEach(element =>{
-			if(element.lemma == "ouvrir")
-			{
-				controller.Shutter1.toggleVolet();
-				throw {};
-			}
-			else if (element.lemma == "fermer")
-			{
-				controller.Shutter1.toggleVolet();
-				throw {};
-			}
-		})
-	}catch(e){};
-	}
-	else if (boolLight)
-	{
-		try{
-			docFR.lemmatizer().forEach(element =>{
-				if(element.lemma == "allumer")
-				{
-					throw {};
+	else if (boolVolet) {
+		try {
+			docFR.lemmatizer().forEach(element => {
+				if (element.lemma == "ouvrir") {
+					volet[val[0]-1].toggleVolet();
 				}
-				else if (element.lemma == "éteindre")
-				{
-					throw {};
+				else if (element.lemma == "fermer") {
+					volet[val[0]-1].toggleVolet();
+				}
+			})	
+		} catch (e) { };
+	}
+	else if (boolLight) {
+		try {
+			docFR.lemmatizer().forEach(element => {
+				if (element.lemma == "allumer") {
+					lights[val[0] - 1].toggleLight();
+				}
+				else if (element.lemma == "éteindre") {
+					lights[val[0] - 1].toggleLight();
 				}
 			})
-		}catch(e){};
+		} catch (e) { };
 	}
 
 }
 
 
-client.on(Events.MessageCreate,async message =>{
-	if (message.channelId === channel_id)
-	{
+client.on(Events.MessageCreate, async message => {
+	if (message.channelId === channel_id) {
 		msg = nlp(message.content);
 		sentences = msg.sentences().out("array");
-		sentences.forEach(element =>{
-		parse(element);
+		sentences.forEach(element => {
+			parse(element);
 
 		})
 	}

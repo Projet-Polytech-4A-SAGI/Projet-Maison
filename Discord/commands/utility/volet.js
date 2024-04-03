@@ -1,79 +1,85 @@
 const { SlashCommandBuilder } = require('discord.js');
 const controller = require('../../../Controller/controller.js');
+const volet = [controller.Shutter1, controller.Shutter2]
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('volet')
 		.setDescription('Ouvre/Ferme les volets')
 		.addSubcommand(subcommand =>
 			subcommand.setName("toggle")
-			.setDescription("Change l'état des volets")
-			.addStringOption(option =>
-				option.setName("etat")
-				.setDescription("etat du volet")
-				.setRequired(false)
-				.addChoices(
-					{name:"Ouvrir",value : "O"},
-					{name:"Fermer",value : "F"}
-				)))
+				.setDescription("Change l'état des volets")
+				.addIntegerOption(option =>
+					option.setName("numero")
+						.setDescription("Quel volet ouvrir ?")
+						.setRequired(true)
+						.setMinValue(1)
+						.setMaxValue(volet.length))
+				.addStringOption(option =>
+					option.setName("etat")
+						.setDescription("etat du volet")
+						.setRequired(false)
+						.addChoices(
+							{ name: "Ouvrir", value: "O" },
+							{ name: "Fermer", value: "F" }
+						))
+		)
 		.addSubcommand(subcommand =>
 			subcommand.setName("get")
-			.setDescription("Renvoie l'état des volets"))
-		,
+				.setDescription("Renvoie l'état des volets")
+				.addIntegerOption(option =>
+					option.setName("numero")
+						.setDescription("Quel volet ?")
+						.setRequired(true)
+						.setMinValue(1)
+						.setMaxValue(volet.length)))
+	,
 	async execute(interaction) {
 		console.log("Volet.js : La commande /volet a été utilisée");
 		const subCommandName = interaction.options.getSubcommand();
 		let reply = "";
-		if (subCommandName=== "toggle")
-		{
+		if (subCommandName === "toggle") {
 			const value = interaction.options.getString("etat") ?? "toggle";
-			switch (value)
-			{
+			const num = interaction.options.getInteger("numero") ?? 1;
+			switch (value) {
 				case "O":
-					if(!controller.Volet.getVoletState())
-					{
-						controller.Volet.toggleVolet();
+					if (!volet[num - 1].getVoletState()) {
+						volet[num - 1].toggleVolet();
 						reply = "Le volet a été ouvert";
 					}
-					else
-					{
+					else {
 						reply = "Le volet est déjà ouvert";
 					}
 					break;
 				case "F":
-					if(controller.Volet.getVoletState())
-					{
-						controller.Volet.toggleVolet();
+					if (volet[num - 1].getVoletState()) {
+						volet[num - 1].toggleVolet();
 						reply = "Le volet a été fermé";
 					}
-					else
-					{
+					else {
 						reply = "Le volet est déjà fermé";
 					}
 					break;
 				default:
-					controller.Volet.toggleVolet();
-					if(controller.Volet.getVoletState())
-					{
+					volet[num - 1].toggleVolet();
+					if (volet[num - 1].getVoletState()) {
 						reply = "Le volet a été ouvert";
 					}
-					else
-					{
+					else {
 						reply = "Le volet a été fermé";
 					}
-				
+
 			}
 		}
-		else if(subCommandName	=== "get")
-		{
-			if(controller.Volet.getVoletState())
-			{
+		else if (subCommandName === "get") {
+			const num = interaction.options.getInteger("numero") ?? 1;
+			reply = "";
+			if (volet[num - 1].getVoletState()) {
 				reply = "Le volet est ouvert";
 			}
-			else
-			{
+			else {
 				reply = "Le volet est fermé";
 			}
 		}
-		await interaction.reply({content:reply, ephemeral:true});
+		await interaction.reply({ content: reply, ephemeral: true });
 	},
 };
