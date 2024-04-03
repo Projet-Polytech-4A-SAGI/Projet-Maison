@@ -171,20 +171,6 @@ function SocketUpdate(socketIoInstance) {
 
 
 
-/* Mes tests
-MaMaison.setPasDeTempsEnMs(1000);
-MaMaison.startSimulation();
-
-var MonRad = new Radiator();
-var MonVolet = new Volet();
-
-MonVolet.toggleVolet(true);
-MonVolet.toggleVolet(false);
-setTimeout(() => {
-  MonRad.toggleRadiator(20);
-}, 60000);
-MonRad.toggleRadiator(25);*/
-
 
 
 const MyHouse = new House();
