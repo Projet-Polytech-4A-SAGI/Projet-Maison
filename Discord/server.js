@@ -16,6 +16,21 @@ const volet = [controller.Shutter1, controller.Shutter2]
 const lights = [controller.Light1, controller.Light2, controller.Light3]
 const radiateurs = [controller.Radiator1, controller.Radiator2]
 
+var list_heat = ["radiateur","chauffage"]
+var list_shutter = ["volet","fenetre","store"]
+var list_light = ["lampe","lumiere",]
+nlp.plugin({
+    tags:{
+      Heat: {},
+      Light: {},
+      Shutter: {},}})
+
+nlp(list_heat).tag("Heat")
+nlp(list_shutter).tag("Light")
+nlp(list_light).tag("Shutter")
+
+var piece = new Map()
+
 
 
 
@@ -70,11 +85,23 @@ client.on(Events.InteractionCreate, async interaction => {
 function parse(msg) {
 	let doc = nlp(msg);
 	let docFR = new nlp_fr(msg);
-	let boolChauffage = doc.has('chauffage') || doc.has("temperature");
-	let boolVolet = doc.has('volet');
-	let boolLight = (doc.has("lampe") || doc.has("lumière"));
-	let temp = 0;
-	val = tal(element).numbers().get();
+	let boolChauffage = doc.has('#Heat');
+	let boolVolet = doc.has('#Shutter');
+	let boolLight = (doc.has("#Light"));
+	let piece
+	val = tal(msg).numbers().get();
+	if(doc.has("chambre"))
+	{
+		piece = 1
+	}
+	else if(doc.has("salon"))
+	{
+		piece = 2
+	}
+	else if(doc.has("cuisine"))
+	{
+		piece = 2
+	}
 	if (boolChauffage) {
 		radiateurs[val[0]-1].toggleRadiator(val[1]);
 
