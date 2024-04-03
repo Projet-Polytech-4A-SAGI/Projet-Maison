@@ -53,10 +53,10 @@ function rightCmd() {
         // Create a new element if not
         var additionalElement = document.createElement('span');
         if(element.classList.contains('TempIn')){
-          additionalElement.textContent = data.House.Inte + "°C";
+          additionalElement.textContent = data.House.Inte.toFixed(2) + "°C";
         }
         if(element.classList.contains('TempOut')){
-          additionalElement.textContent = data.House.Exte + "°C";
+          additionalElement.textContent = data.House.Exte.toFixed(2) + "°C";
         }
         if(element.classList.contains('LivWin')){
           if(data.Shutter1 == true){
