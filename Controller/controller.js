@@ -169,7 +169,47 @@ function SocketUpdate(socketIoInstance) {
   }, process.env.INTERVAL_DE_TEMPS_SIMULATION || 5000);
 }
 
+const fs = require('fs');
 
+function historysave() {
+  const filePath = '../Express/history/history.csv';
+  const maxLines = 360;
+
+  setInterval(() => {
+    const temp_inte=MyHouse.getTempInte().toFixed(2);
+    const temp_exte=MyHouse.getTempExte().toFixed(2);
+    const temp_chauffage=((Radiator1.getTempC()+Radiator2.getTempC())/2).toFixed(1);
+
+    const csvLine = `${temp_inte},${temp_exte},${temp_chauffage}\n`;
+
+    fs.readFile(filePath, 'utf8', (err, data) => {
+      if (err) {
+          console.error('Erreur lors de la lecture du fichier CSV :', err);
+          return;
+      }
+
+      const lines = data.trim().split('\n');
+      if (lines.length >= maxLines) {
+          const newLines = lines.slice(lines.length - maxLines + 1).join('\n') + '\n';
+          fs.writeFile(filePath, newLines, (err) => {
+              if (err) {
+                  console.error('Erreur lors de l\'écriture dans le fichier CSV :', err);
+              }
+          });
+      }
+
+      fs.appendFile(filePath, csvLine, (err) => {
+          if (err) {
+              console.error('Erreur lors de l\'écriture dans le fichier CSV :', err);
+          }
+      });
+    }) 
+  }, process.env.INTERVAL_DE_TEMPS_SIMULATION || 10000);
+}
+
+// MyHouse.getTempExte
+//       MyHouse.getTempInte
+//       Radiator1.getTempC
 
 
 
@@ -192,6 +232,8 @@ const Light3 = new Light();
 
 MaMaison1.setPasDeTempsEnMs(process.env.INTERVAL_DE_TEMPS_SIMULATION || 5000);
 MaMaison1.startSimulation();
+
+historysave();
 
 module.exports = {
 

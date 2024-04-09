@@ -1,5 +1,4 @@
 var debug = require('debug')('Express:app.js');
-
 const express = require('express');
 
 const app = express();
@@ -10,9 +9,7 @@ function SetIo(socket){
     io=socket;
 }
 
-/*app.use(express.static('views/style'));
-app.use(express.static('views/script'));
-app.use(express.static('views/img'));*/
+const fs = require('fs');
 const path = require("path");
 const controller = require('../Controller/controller');
 app.use(express.static(path.join(__dirname, "views")));
@@ -22,6 +19,43 @@ app.get('/',(req, res) => {
     res.sendFile('views/front2.html', {root: __dirname})
     debug('interface appelée');
   });
+
+app.get('/chart',(req, res) => {
+res.sendFile('views/chart.html', {root: __dirname})
+debug('chart appelée');
+});
+
+app.get('/chart_data',(req, res) => {
+    debug('chart data appelée');
+    const filePath = path.join(__dirname, 'history', 'history.csv');
+
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error('Erreur lors de la lecture du fichier CSV :', err);
+            res.status(500).send('Erreur lors de la lecture du fichier CSV');
+            return;
+        }
+
+        const lines = data.trim().split('\n');
+        const labels = [];
+        const tempExtData = [];
+        const tempIntData = [];
+        const tempConsData = [];
+
+        lines.forEach((line) => {
+            const [tempInte, tempExte, tempConsigne] = line.split(',');
+            labels.push('');
+            tempExtData.push(parseFloat(tempExte));
+            tempIntData.push(parseFloat(tempInte));
+            tempConsData.push(parseFloat(tempConsigne));
+        });
+
+        res.json({ labels, tempExtData, tempIntData, tempConsData });
+    });
+
+
+
+    });
 
 app.get('/model',(req, res) => {
 res.sendFile('views/model.html', {root: __dirname})

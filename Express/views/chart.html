@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    
+    <title>CHART</title>
+</head>
+<body>
+
+<div>
+    <canvas id="myChart"></canvas>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <script>
+    const ctx = document.getElementById('myChart');
+
+    fetch('http://localhost:3000/chart_data')
+        .then(response => response.json())
+        .then(data => {
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data.labels,
+                    datasets: [
+                        {
+                            label: 'Température Extérieure',
+                            data: data.tempExtData,
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Température Intérieure',
+                            data: data.tempIntData,
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Température Consigne',
+                            data: data.tempConsData,
+                            borderWidth: 1
+                        }
+                    ]
+                }
+            });
+        })
+        .catch(error => {
+            console.error('Erreur lors de la récupération des données :', error);
+        });
+</script>
+</body>
+</html>

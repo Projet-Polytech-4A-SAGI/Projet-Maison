@@ -8,7 +8,7 @@
 	font-size: calc(64px + (80 - 64) * (100vw - 320px)/(960 - 320));
 }
 body, input {
-	font-size: 1em;
+	font-size: 0.8em;
 	line-height: 1.5;
 }
 body {
@@ -137,7 +137,7 @@ main {
 			border-radius: 10%;
     }
 	.house_icon{
-		width: 300px;
+		width: 150px;
 	}
 }
 
@@ -151,7 +151,7 @@ main {
 			border-radius: 10%;
     }
 	.house_icon{
-		width: 150px;
+		width: 75px;
 	}
 }
 
