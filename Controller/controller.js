@@ -1,4 +1,5 @@
 require('dotenv').config()
+const path = require('path');
 
 var debug = require('debug')('controller.js');
 
@@ -170,7 +171,7 @@ function SocketUpdate(socketIoInstance) {
 const fs = require('fs');
 
 function historysave() {
-  const filePath = '../Express/history/history.csv';
+  const filePath = path.join(__dirname, '..', 'Express', 'history', 'history.csv');
   const maxLines = 360;
 
   setInterval(() => {
