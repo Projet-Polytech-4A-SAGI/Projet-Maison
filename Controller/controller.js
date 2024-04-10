@@ -8,8 +8,7 @@ var debug = require('debug')('controller.js');
 const SimulationMaison = require("./SimulationMaison.obfs.js");
 
 // On créé une instance de la classe SimulationMaison
-var MaMaison1 = new SimulationMaison();
-var MaMaison2 = new SimulationMaison();
+var MaMaison = new SimulationMaison();
 let io;
 
 class Light{
@@ -41,15 +40,14 @@ class Volet {
 
   toggleVolet(newState) {
     this.isOpen = newState;
-    this.Maison.setVoletOuvert(newState);
-    if(this.Maison.getVoletOuvert()==true){
+    if(this.isOpen==true){
       debug('Le changement de Volet a été envoyé à la simulation (Volet ouvert)');
     }else{
       debug('Le changement de Volet a été envoyé à la simulation (Volet fermé)');
     }
   }
   getVoletState() {
-    return this.Maison.getVoletOuvert();
+    return this.isOpen;
   }
 }
 
@@ -79,7 +77,7 @@ class House{
 
 class Radiator {
   constructor() {
-    this.tempC = 0;
+    this.tempC = 20;
     this.tempR = 0;
     this.tempInt = 0;
     this.tempExt = 0;
@@ -214,24 +212,24 @@ function historysave() {
 
 
 const MyHouse = new House();
-MyHouse.setMaison(MaMaison1);
+MyHouse.setMaison(MaMaison);
 
 const Radiator1 = new Radiator();
-Radiator1.setMaison(MaMaison1);
+Radiator1.setMaison(MaMaison);
 const Radiator2 = new Radiator();
-Radiator2.setMaison(MaMaison1);
+Radiator2.setMaison(MaMaison);
 
 const Shutter1 = new Volet();
-Shutter1.setMaison(MaMaison1);
+Shutter1.setMaison(MaMaison);
 const Shutter2 = new Volet();
-Shutter2.setMaison(MaMaison2);
+Shutter2.setMaison(MaMaison); //la
 
 const Light1 = new Light();
 const Light2 = new Light();
 const Light3 = new Light();
 
-MaMaison1.setPasDeTempsEnMs(process.env.INTERVAL_DE_TEMPS_SIMULATION || 5000);
-MaMaison1.startSimulation();
+MaMaison.setPasDeTempsEnMs(process.env.INTERVAL_DE_TEMPS_SIMULATION || 5000);
+MaMaison.startSimulation();
 
 historysave();
 
