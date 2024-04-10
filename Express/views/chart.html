@@ -3,20 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <link rel="stylesheet" href="/css/style2.css" type="text/css">
     
     <title>CHART</title>
 </head>
-<body>
+<body height: 100%;>
 
 <div>
-    <canvas id="myChart"></canvas>
+    <canvas id="myChart" height="120%" ></canvas>
   </div>
   
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <a href="http://localhost:3000/">
+    <img src="/img/home.png" class="home_icon" alt="house_logo">
+</a>
   
   <script>
     const ctx = document.getElementById('myChart');
+
+    const labels = Array.from({length: 120}, (_, i) => i + 1);
 
     fetch('http://localhost:3000/chart_data')
         .then(response => response.json())
@@ -24,7 +29,7 @@
             new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: data.labels,
+                    labels: labels, //data.labels,
                     datasets: [
                         {
                             label: 'Température Extérieure',
@@ -42,12 +47,22 @@
                             borderWidth: 1
                         }
                     ]
+                },
+                options: {
+                    scales: {
+                        xAxis: [{
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Temps'
+                    }
+                }]
+                    }
                 }
-            });
-        })
+            })         
         .catch(error => {
             console.error('Erreur lors de la récupération des données :', error);
-        });
+        })
+    });
 </script>
 </body>
 </html>

@@ -172,7 +172,7 @@ const fs = require('fs');
 
 function historysave() {
   const filePath = path.join(__dirname, '..', 'Express', 'history', 'history.csv');
-  const maxLines = 360;
+  const maxLines = 120;
 
   setInterval(() => {
     const temp_inte=MyHouse.getTempInte().toFixed(2);
@@ -203,7 +203,7 @@ function historysave() {
           }
       });
     }) 
-  }, process.env.INTERVAL_DE_TEMPS_SIMULATION || 10000);
+  }, process.env.INTERVAL_DE_TEMPS_SIMULATION || 30000);
 }
 
 // MyHouse.getTempExte
