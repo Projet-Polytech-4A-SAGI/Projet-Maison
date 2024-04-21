@@ -130,6 +130,12 @@ function parse(msg) {
 	{
 		piece = 3;
 	}
+	else
+	{
+		let reply = "La pièce n'est pas prise en compte ou n'existe pas.\r\nVeuillez utiliser les pièces suivantes:"
+		reply = reply + "- Chambre\r\n- Salon\r\n- Toilettes"
+		channel.send()
+	}
 	if (boolChauffage) {
 		try
 		{
@@ -150,8 +156,10 @@ function parse(msg) {
 	}
 	else if (boolVolet) {
 		try {
+			let found = false
 			docFR.lemmatizer().forEach(element => {
 				if (element.lemma == "ouvrir") {
+					found = true
 					if(!volet[piece-1].getVoletState())
 					{
 					volet[piece-1].toggleVolet();
@@ -165,6 +173,7 @@ function parse(msg) {
 
 				}
 				else if (element.lemma == "fermer") {
+					found = true
 					if(!volet[piece-1].getVoletState())
 					{
 					volet[piece-1].toggleVolet();
@@ -176,20 +185,21 @@ function parse(msg) {
 					}
 
 				}
-				else
-				{
-					channel.send("Votre instruction n'est pas reconnue, veuillez réessayer.");
-
-				}
-			})	
+			})
+			if(!found)
+			{
+				channel.send("Votre instrcution n'est pas reconnue. Veuillez utiliser les verbes \"ouvrir\" ou \"fermer\".");
+			}
 		} catch (e) {
 			channel.send("Votre instruction est incorrecte, veuillez réessayer.");
 		 };
 	}
 	else if (boolLight) {
 		try {
+			let found = false
 			docFR.lemmatizer().forEach(element => {
 				if (element.lemma == "allumer") {
+					found = true
 					lights[piece-1].toggleLight();
 					if(!lights[piece-1].getLightState)
 					{
@@ -202,6 +212,7 @@ function parse(msg) {
 
 				}
 				else if (element.lemma == "éteindre") {
+					found = true
 					if(lights[piece-1].getLightState())
 					{
 					lights[piece-1].toggleLight();
@@ -213,12 +224,11 @@ function parse(msg) {
 					}
 
 				}
-				else
-				{
-					channel.send("Votre instruction n'est pas reconnue, veuillez réessayer.");
-
-				}
 			})
+			if(!found)
+			{
+				channel.send("Votre instrcution n'est pas reconnue. Veuillez utiliser les verbes \"allumer\" ou \"éteindre\".");
+			}
 		} catch (e) {
 			channel.send("Votre instruction est incorrecte, veuillez réessayer.");
 		 };
