@@ -35,6 +35,7 @@ module.exports = {
 	,
 	async execute(interaction) {
 		console.log("Volet.js : La commande /volet a été utilisée");
+		const piece = ["chambre","salon","cuisine"]
 		const subCommandName = interaction.options.getSubcommand();
 		let reply = "";
 		if (subCommandName === "toggle") {
@@ -44,7 +45,7 @@ module.exports = {
 				case "O":
 					if (!volet[num - 1].getVoletState()) {
 						volet[num - 1].toggleVolet();
-						reply = "Le volet a été ouvert";
+						reply = "Le volet de la pièce \""+piece[num -1] +" a été ouvert";
 					}
 					else {
 						reply = "Le volet est déjà ouvert";
@@ -53,7 +54,7 @@ module.exports = {
 				case "F":
 					if (volet[num - 1].getVoletState()) {
 						volet[num - 1].toggleVolet();
-						reply = "Le volet a été fermé";
+						reply = "Le volet de la pièce \""+piece[num -1] +" a été fermé";
 					}
 					else {
 						reply = "Le volet est déjà fermé";
@@ -62,10 +63,10 @@ module.exports = {
 				default:
 					volet[num - 1].toggleVolet();
 					if (volet[num - 1].getVoletState()) {
-						reply = "Le volet a été ouvert";
+						reply = "Le volet de la pièce \""+piece[num -1] +" a été ouvert";
 					}
 					else {
-						reply = "Le volet a été fermé";
+						reply = "Le volet de la pièce \""+piece[num -1] +" a été fermé";
 					}
 
 			}

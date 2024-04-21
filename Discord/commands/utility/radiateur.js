@@ -36,6 +36,7 @@ module.exports = {
 						.setMaxValue(radiateurs.length))),
 	async execute(interaction) {
 		console.log("Radiateur.js : La commande /radiateur a été appelée");
+		const piece = ["chambre","salon","cuisine"]
 		const subCommandName = interaction.options.getSubcommand();
 		let reply = "";
 		const num = interaction.options.getNumber("numero") ?? 0;

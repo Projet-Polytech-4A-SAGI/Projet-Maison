@@ -170,6 +170,18 @@ function SocketUpdate(socketIoInstance) {
 
 const fs = require('fs');
 
+setInterval(() => {
+  meteo()
+},3600 * 1000)
+
+async function meteo()
+{
+    const  response = await fetch('https://api.meteo-concept.com/api/forecast/nextHours?token='+process.env.token_meteo+"&insee="+process.env.insee)
+    const data = await response.json();
+    MaMaison.setTemperatureExterieure(data.forecast[0].temp2m);
+
+  };
+
 function historysave() {
   const filePath = path.join(__dirname, '..', 'Express', 'history', 'history.csv');
   const maxLines = 120;

@@ -1,7 +1,8 @@
 const { SlashCommandBuilder } = require('discord.js');
 const controller = require('../../../Controller/controller.js');
 const lights = [controller.Light1, controller.Light2, controller.Light3]
-module.exports = {
+
+module.exports = {	
 	data: new SlashCommandBuilder()
 		.setName('light')
 		.setDescription('Controle la lumière')
@@ -23,6 +24,7 @@ module.exports = {
 
 	async execute(interaction) {
 		const numero = interaction.options.getInteger('numero');
+		const piece = ["chambre","salon","cuisine"]
 		const etat = interaction.options.getString('etat') ?? 'on';
 		var reply = "La lampe " + " n°" + numero + " a été ";
 		if (etat == 'on' && !lights[numero - 1].getLightState()) {
