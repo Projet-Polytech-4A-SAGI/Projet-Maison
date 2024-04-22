@@ -231,11 +231,13 @@ const Radiator1 = new Radiator();
 Radiator1.setMaison(MaMaison);
 const Radiator2 = new Radiator();
 Radiator2.setMaison(MaMaison);
+Radiator1.toggleRadiator(Radiator1.getTempC());
+Radiator2.toggleRadiator(Radiator1.getTempC());
 
 const Shutter1 = new Volet();
 Shutter1.setMaison(MaMaison);
 const Shutter2 = new Volet();
-Shutter2.setMaison(MaMaison); //la
+Shutter2.setMaison(MaMaison); 
 
 const Light1 = new Light();
 const Light2 = new Light();
