@@ -1,9 +1,9 @@
-# Projet-Maison
+# Projet Maison Discord
 
-## Installation du projet
+## le bot discord
 
-Ce guide vous expliquera comment créer un bot Discord et le
-lir au projet
+Cette partie vous expliquera comment créer un bot Discord et le
+lier au projet.
 
 
 ### 1. Créez une application Discord
@@ -37,7 +37,7 @@ lir au projet
 ### 4. Configuration de l'environnement de développement
 
 
-- Importez le projet sur vore machine
+- Importez le projet sur votre machine
 - Créez un fichier .env contenant les variables d'environnement et remplissez le comme ceci : 
 
 ```
@@ -56,7 +56,15 @@ channelId = {ID du salon}
 - Copiez le lien généré et ouvrez-le dans votre navigateur web.
 - Sélectionnez un serveur où vous souhaitez inviter votre bot et cliquez sur "Authorize".
 
+## Utiliser la simulation et l'IHM
+Dans cette partie nous expliquerons comment lancer le reste du projet sur votre ordinateur.
+
+### Instalation préalable
+Après avoir cloné le dépot github dans un dossier sur votre ordinateur, étape que vous avez du faire précédement, vous devez lancer la commande ```npm install``` dans le dossier. Cela devrait installer toutes les dépendances nécessaires au projet.
+
+### Lancer le projet
+Depuis le dossier, lancez la commande ```node app.js```. Si vous avez configuré correctement les token du .env tout devrait alors fonctionner. Si vous voulez utiliser le projet sans le bot Discord, vous pouvez lancer la commande ```node Express/express.js``` à la place.
 
 ## Conclusion
 
-Félicitations ! Vous avez créé et déployé avec succès votre bot Discord . Vous pouvez maintenant manipuler le chauffage, les fenêtres et les lumières comme bon vous semble.
+Félicitations ! Vous avez créé et déployé avec succès notre projet . Vous pouvez maintenant manipuler le chauffage, les fenêtres et les lumières comme bon vous semble.

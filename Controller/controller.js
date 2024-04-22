@@ -231,7 +231,7 @@ const Radiator1 = new Radiator();
 Radiator1.setMaison(MaMaison);
 const Radiator2 = new Radiator();
 Radiator2.setMaison(MaMaison);
-Radiator1.toggleRadiator(Radiator1.getTempC());
+Radiator1.toggleRadiator(Radiator1.getTempC()); //On leur donne une consigne de base pour ne pas qu'ils chauffent à l'infini au démarage
 Radiator2.toggleRadiator(Radiator2.getTempC());
 
 const Shutter1 = new Volet();
