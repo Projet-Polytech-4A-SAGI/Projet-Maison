@@ -232,7 +232,7 @@ Radiator1.setMaison(MaMaison);
 const Radiator2 = new Radiator();
 Radiator2.setMaison(MaMaison);
 Radiator1.toggleRadiator(Radiator1.getTempC());
-Radiator2.toggleRadiator(Radiator1.getTempC());
+Radiator2.toggleRadiator(Radiator2.getTempC());
 
 const Shutter1 = new Volet();
 Shutter1.setMaison(MaMaison);
