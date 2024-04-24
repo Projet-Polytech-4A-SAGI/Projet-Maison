@@ -67,4 +67,4 @@ Depuis le dossier, lancez la commande ```node app.js```. Si vous avez configuré
 
 ## Conclusion
 
-Félicitations ! Vous avez créé et déployé avec succès notre projet . Vous pouvez maintenant manipuler le chauffage, les fenêtres et les lumières comme bon vous semble.
+Félicitations ! Vous avez créé et déployé avec succès notre projet . Vous pouvez maintenant manipuler le chauffage, les fenêtres et les lumières comme bon vous semble en allant simplement sur ```localhost:3000```.
