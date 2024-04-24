@@ -10,12 +10,20 @@ module.exports = {
 			subcommand.setName("toggle")
 				.setDescription("Change la consigne du radiateur")
 
-				.addNumberOption(option =>
+				/*.addNumberOption(option =>
 					option.setName("numero")
 						.setDescription("numero du radiateur")
 						.setRequired(true)
 						.setMinValue(0)
-						.setMaxValue(radiateurs.length))
+						.setMaxValue(radiateurs.length))*/
+				.addStringOption(option =>
+					option.setName("piece")
+						.setDescription("Quelle pièce chauffer ?")
+						.setRequired(true)
+						.addChoices(
+							{ name: "Chambre", value: "chambre" },
+							{ name: "Salon", value: "salon" },
+						))
 
 				.addNumberOption(option =>
 					option.setName("temp")
@@ -28,18 +36,33 @@ module.exports = {
 		.addSubcommand(subcommand =>
 			subcommand.setName("get")
 				.setDescription("Renvoie les température de consigne et de la pièce")
-				.addNumberOption(option =>
-					option.setName("numero")
-						.setDescription("numero du radiateur")
+				.addStringOption(option =>
+					option.setName("piece")
+						.setDescription("Quelle pièce chauffer ?")
 						.setRequired(true)
-						.setMinValue(1)
-						.setMaxValue(radiateurs.length))),
+						.addChoices(
+							{ name: "Chambre", value: "chambre" },
+							{ name: "Salon", value: "salon" },
+						))),
 	async execute(interaction) {
 		console.log("Radiateur.js : La commande /radiateur a été appelée");
-		const piece = ["chambre","salon","cuisine"]
+		//const piece = ["chambre","salon","cuisine"]
 		const subCommandName = interaction.options.getSubcommand();
 		let reply = "";
-		const num = interaction.options.getNumber("numero") ?? 0;
+		const piece = interaction.options.getString("piece") ?? 1;
+		var num = -1;
+			switch (piece)
+			{
+				case "chambre":
+					num = 1
+					break;
+				case "salon":
+					num = 2
+					break;
+				case "toilettes":
+					num = 3
+					break;
+			}
 
 		if (subCommandName === "toggle") {
 			const consigne = interaction.options.getNumber("Temp");

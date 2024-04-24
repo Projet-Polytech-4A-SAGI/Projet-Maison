@@ -36,8 +36,8 @@ function runUpdate2() {
 }
 
 function leftCmd(message) {
-  const cmdElement = document.querySelector("left-cmd");
-  cmdElement.textContent += message + '\n';
+  const cmdElement = document.querySelector("#left-cmd");
+  cmdElement.innerHTML += message + '\n';
 }
 
 function rightCmd() {

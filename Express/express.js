@@ -5,6 +5,7 @@ debug(" Début");
 const http = require('http');
 const app = require('./app');
 const Controller = require('../Controller/controller');
+const Discord = require('../Discord/server');
 
 const normalizePort = val => {
   const port = parseInt(val, 10);
@@ -45,6 +46,7 @@ const { Server } = require("socket.io");
 const io = new Server(server);
 Controller.SocketUpdate(io);
 app.SetIo(io);
+Discord.SetIo(io);
 
 server.on('error', errorHandler);
 server.on('listening', () => {
