@@ -178,7 +178,7 @@ else if (boolVolet) {
             }
             else if (doc.has("{fermer}")) {
                 found = true
-                if(!volet[piece-1].getVoletState())
+                if(volet[piece-1].getVoletState())
                 {
                 volet[piece-1].toggleVolet();
                 channel.send('Le volet de la pièce "'+pieces[piece-1]+'" a été fermé');
@@ -202,7 +202,7 @@ else if (boolLight) {
         let found = false
             if (doc.has("{allumer}")) {
                 found = true
-                if(lights[piece-1].getLightState())
+                if(!lights[piece-1].getLightState())
                 {
                     lights[piece-1].toggleLight();
                     channel.send('La lampe de la pièce "'+pieces[piece-1]+'" a été allumée');
@@ -215,7 +215,7 @@ else if (boolLight) {
             }
             else if (doc.has("{eteindre}")) {
                 found = true
-                if(!lights[piece-1].getLightState())
+                if(lights[piece-1].getLightState())
                 {
                 lights[piece-1].toggleLight();
                 channel.send('La lampe de la pièce "'+pieces[piece-1]+'" a été éteinte');
