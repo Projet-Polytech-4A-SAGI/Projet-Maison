@@ -65,6 +65,7 @@ Dans cette partie nous expliquerons comment lancer le reste du projet sur votre 
 
 ### Instalation préalable
 Après avoir cloné le dépot github dans un dossier sur votre ordinateur, étape que vous avez du faire précédement, vous devez lancer la commande ```npm install``` dans le dossier. Cela devrait installer toutes les dépendances nécessaires au projet.
+Après invitation de votre bot sur votre serveur, publier vos commandes en lançant la commande ```node Discord/deploy_commands.js```.
 
 ### Lancer le projet
 Depuis le dossier, lancez la commande ```node app.js```. Si vous avez configuré correctement les token du .env tout devrait alors fonctionner. Si vous voulez utiliser le projet sans le bot Discord, vous pouvez lancer la commande ```node Express/express.js``` à la place.
