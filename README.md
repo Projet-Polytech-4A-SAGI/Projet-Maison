@@ -41,10 +41,14 @@ lier au projet.
 - Créez un fichier .env contenant les variables d'environnement et remplissez le comme ceci : 
 
 ```
+PORT= {Port de l'IHM Web}
+INTERVAL_DE_TEMPS_SIMULATION= {Pas de la simulation}
 token = { token bot } 
 clientId = {ID de l'application}
 guildId = {ID du serveur}
 channelId = {ID du salon}
+token_meteo = {Token de votre API météo}
+insee = {Code insee de la ville pour l'API Météo-Contact}
 ```
 
 
