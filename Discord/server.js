@@ -28,6 +28,7 @@ tal.plugin({
 	words:{
 		chauffage : "Heat",
 		radiateur : "Heat",
+        temperature : "Heat",
 		volet : "Shutter",
 		fenetre : "Shutter",
 		fenêtre : "Shutter",
