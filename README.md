@@ -48,7 +48,7 @@ channelId = {ID du salon}
 ```
 
 
-### 6. Invitez votre bot sur un serveur Discord
+### 5. Invitez votre bot sur un serveur Discord
 
 - Retournez sur la page de votre application sur le portail des développeurs Discord.
 - Dans l'onglet "OAuth2", cochez la case "bot" dans la section "Scopes".
