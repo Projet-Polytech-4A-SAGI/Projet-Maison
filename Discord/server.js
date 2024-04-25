@@ -167,7 +167,7 @@ else if (boolVolet) {
                 found = true
                 if(!volet[piece-1].getVoletState())
                 {
-                volet[piece-1].toggleVolet();
+                volet[piece-1].toggleVolet(true);
                 channel.send('Le volet de la pièce "'+pieces[piece-1]+'" a été ouvert');
                 }
                 else
@@ -181,7 +181,7 @@ else if (boolVolet) {
                 found = true
                 if(volet[piece-1].getVoletState())
                 {
-                volet[piece-1].toggleVolet();
+                volet[piece-1].toggleVolet(false);
                 channel.send('Le volet de la pièce "'+pieces[piece-1]+'" a été fermé');
                 }
                 else
